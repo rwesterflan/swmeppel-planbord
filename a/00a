@@ -1,0 +1,44 @@
+if($out{filter} =~ /^$/){
+$Pag = $dbh->prepare("SELECT enq.*, courses.id, courses.shortName, courses.fullName, courses.icon FROM enq left join courses on enq.courseid = courses.id where enq.courseDate like '%2015%' order by enq.id desc");
+$Pag->execute();
+} else {
+$Pag = $dbh->prepare("SELECT enq.*, courses.id, courses.shortName, courses.fullName, courses.icon FROM enq left join courses on enq.courseid = courses.id where courses.shortName like '%$out{filter}%' and enq.courseDate like '%2015%' order by enq.id desc");
+$Pag->execute();
+};
+
+print <<DURR;
+<style>
+table.sel tr:hover{ background-color:White;cursor:pointer; }
+table.bla { text-align:center; }
+</style>
+
+<h2>Ingezonden enquetes</h2>
+Hier worden alle ingevulde enquetes weergegeven, met een samenvatting van de uitslagen.<br>
+Let op dat alleen beheerders deze pagina kunnen zien.<p>
+<div class=info>Kolommen:<br>A=Goed geleerd, B=Goed meekomen, C=Tevreden, D=Kwaliteit lesmateriaal, E=Sfeer leslokaal, F=Kwaliteit docent, G=Nog eens, H=Wil op de hoogte gehouden worden.<br>Waardes: 1=Matig, 2=Goed, 3=Uitstekend</div>
+<hr>
+<table class=bla>
+<tr><th></th><th width=25px>A</th><th width=25px>B</th><th width=25px>C</th><th width=25px>D</th><th width=25px>E</th><th width=25px>F</th><th width=25px>G</th><th width=25px>H</th><th width=200px>Vrije tekstvelden</th></tr>
+DURR
+
+while (@naw = $Pag->fetchrow()) {
+
+if($naw[5] =~ /1/) { $geleerd = "red"; $geleerdico="no.png"; } elsif($naw[5] =~ /2/) { $geleerd = "yellow"; $geleerdico="maybe.png"; } elsif($naw[5] =~ /3/) { $geleerd = "green"; $geleerdico="yes.png"; };
+if($naw[6] =~ /1/) { $meekomen = "red"; $mico="no.png"; } elsif($naw[6] =~ /2/) { $meekomen = "yellow"; $mico="maybe.png";  } elsif($naw[6] =~ /3/) { $meekomen = "green"; $mico="yes.png";  };
+if($naw[7] =~ /1/) { $tevreden = "red"; $tico="no.png"; } elsif($naw[7] =~ /2/) { $tevreden = "yellow"; $tico="maybe.png"; } elsif($naw[7] =~ /3/) { $tevreden = "green"; $tico="yes.png"; };
+if($naw[8] =~ /1/) { $lesmat = "red"; $lico="no.png"; } elsif($naw[8] =~ /2/) { $lesmat = "yellow"; $lico="maybe.png"; } elsif($naw[8] =~ /3/) { $lesmat = "green"; $lico="yes.png"; };
+if($naw[9] =~ /1/) { $sfeer = "red"; $sico="no.png"; } elsif($naw[9] =~ /2/) { $sfeer = "yellow"; $sico="maybe.png"; } elsif($naw[9] =~ /3/) { $sfeer = "green"; $sico="yes.png"; };
+if($naw[10] =~ /1/) { $docent = "red"; $dico="no.png"; } elsif($naw[10] =~ /2/) { $docent = "yellow"; $dico="maybe.png"; } elsif($naw[10] =~ /3/) { $docent = "green"; $dico="yes.png"; };
+if($naw[11] =~ /0/) { $nogeens= "red"; $nico="no.png"; } elsif($naw[11] =~ /1/) { $nogeens = "green"; $nico="yes.png"; };
+if($naw[16] =~ /on/) { $contactme= "yes.png"; $contactclr="green"; } else { $contactme = "no.png"; $contactclr="red"; };
+if($naw[20] =~ /^$/) { $naw[20] = "<img src=./content/static/no.png> Niet opgegeven" };
+  
+ print "<tr><td><b>$naw[2]</b></td><td bgcolor=$geleerd><img src=./content/static/$geleerdico></td><td bgcolor=$meekomen><img src=./content/static/$mico></td><td bgcolor=$tevreden><img src=./content/static/$tico></td><td bgcolor=$lesmat><img src=./content/static/$lico></td><td bgcolor=$sfeer><img src=./content/static/$sico></td><td bgcolor=$docent><img src=./content/static/$dico></td><td bgcolor=$nogeens><img src=./content/static/$nico></td><td align=center bgcolor=$contactclr><img src=./content/static/$contactme></td><td>Suggesties: $naw[12]</td></tr><tr><td>$naw[20]</td><td colspan=8>$naw[15]</td><td>Ideeen: $naw[14]</td></tr><tr><td><img src=./content/static/ico/$naw[22].png></td></td><td colspan=8></td><td>Contact admin: $naw[13]</td><tr><td bgcolor=black colspan=11></td></tr>\n";
+
+ $geleerd =""; $meekomen=""; $tevreden=""; $lesmat=""; $sfeer=""; $docent=""; $nogeens=""; $contactme=""; $naw[20]="";
+ $mico=".png"; $tico=".png"; $lico=".png"; $sico=".png"; $dico=".png"; $nico=".png";
+
+};
+
+print "</table>";
+print "Samenvatting van deze enquetes worden nog gemaakt...";

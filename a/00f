@@ -1,0 +1,72 @@
+
+$uid = $userid;
+if(!$out{doMe}){ $userid = $userid; } else { $userid = $out{doMe}; $useroverride="1"; };
+
+$ConT = $dbh->prepare("SELECT id, initials, lname FROM users where id='$userid'");
+$CONTENT = $dbh->selectall_hashref("SELECT id, initials, lname FROM users where id='$userid'", "id");
+$ConT->execute();
+
+$Sched = $dbh->prepare("SELECT * FROM schedule where id='$userid'");
+$SCHED = $dbh->selectall_hashref("SELECT * FROM schedule where id='$userid'", "id");
+$Sched->execute();
+
+$name = $CONTENT->{$userid}->{initials}." ".$CONTENT->{$userid}->{lname};
+
+$CONTENT->{$userid}->{notes} =~ s/\'/\\\'/g; 
+$CONTENT->{$userid}->{notes} =~ s/\"/\\\"/g; 
+$CONTENT->{$userid}->{notes} =~ s/\</\\\&lt;/g; 
+
+################ Select box selector (please kill me it hurts to live)
+if($SCHED->{$userid}->{d11} =~ /1/){ $d11 = "bgcolor=green>Ja" } elsif($SCHED->{$userid}->{d11} =~ /2/){ $d11 = "bgcolor=yellow>Misschien" } elsif($SCHED->{$userid}->{d11} =~ /3/){ $d11 = "bgcolor=#ff6633>Nee" };
+if($SCHED->{$userid}->{d12} =~ /1/){ $d12 = "bgcolor=green>Ja" } elsif($SCHED->{$userid}->{d12} =~ /2/){ $d12 = "bgcolor=yellow>Misschien" } elsif($SCHED->{$userid}->{d12} =~ /3/){ $d12 = "bgcolor=#ff6633>Nee" };
+if($SCHED->{$userid}->{d13} =~ /1/){ $d13 = "bgcolor=green>Ja" } elsif($SCHED->{$userid}->{d13} =~ /2/){ $d13 = "bgcolor=yellow>Misschien" } elsif($SCHED->{$userid}->{d13} =~ /3/){ $d13 = "bgcolor=#ff6633>Nee" };
+if($SCHED->{$userid}->{d14} =~ /1/){ $d14 = "bgcolor=green>Ja" } elsif($SCHED->{$userid}->{d14} =~ /2/){ $d14 = "bgcolor=yellow>Misschien" } elsif($SCHED->{$userid}->{d14} =~ /3/){ $d14 = "bgcolor=#ff6633>Nee" };
+if($SCHED->{$userid}->{d15} =~ /1/){ $d15 = "bgcolor=green>Ja" } elsif($SCHED->{$userid}->{d15} =~ /2/){ $d15 = "bgcolor=yellow>Misschien" } elsif($SCHED->{$userid}->{d15} =~ /3/){ $d15 = "bgcolor=#ff6633>Nee" };
+if($SCHED->{$userid}->{d21} =~ /1/){ $d21 = "bgcolor=green>Ja" } elsif($SCHED->{$userid}->{d21} =~ /2/){ $d21 = "bgcolor=yellow>Misschien" } elsif($SCHED->{$userid}->{d21} =~ /3/){ $d21 = "bgcolor=#ff6633>Nee" };
+if($SCHED->{$userid}->{d22} =~ /1/){ $d22 = "bgcolor=green>Ja" } elsif($SCHED->{$userid}->{d22} =~ /2/){ $d22 = "bgcolor=yellow>Misschien" } elsif($SCHED->{$userid}->{d22} =~ /3/){ $d22 = "bgcolor=#ff6633>Nee" };
+if($SCHED->{$userid}->{d23} =~ /1/){ $d23 = "bgcolor=green>Ja" } elsif($SCHED->{$userid}->{d23} =~ /2/){ $d23 = "bgcolor=yellow>Misschien" } elsif($SCHED->{$userid}->{d23} =~ /3/){ $d23 = "bgcolor=#ff6633>Nee" };
+if($SCHED->{$userid}->{d24} =~ /1/){ $d24 = "bgcolor=green>Ja" } elsif($SCHED->{$userid}->{d24} =~ /2/){ $d24 = "bgcolor=yellow>Misschien" } elsif($SCHED->{$userid}->{d24} =~ /3/){ $d24 = "bgcolor=#ff6633>Nee" };
+if($SCHED->{$userid}->{d25} =~ /1/){ $d25 = "bgcolor=green>Ja" } elsif($SCHED->{$userid}->{d25} =~ /2/){ $d25 = "bgcolor=yellow>Misschien" } elsif($SCHED->{$userid}->{d25} =~ /3/){ $d25 = "bgcolor=#ff6633>Nee" };
+if($SCHED->{$userid}->{d31} =~ /1/){ $d31 = "bgcolor=green>Ja" } elsif($SCHED->{$userid}->{d31} =~ /2/){ $d31 = "bgcolor=yellow>Misschien" } elsif($SCHED->{$userid}->{d31} =~ /3/){ $d31 = "bgcolor=#ff6633>Nee" };
+if($SCHED->{$userid}->{d32} =~ /1/){ $d32 = "bgcolor=green>Ja" } elsif($SCHED->{$userid}->{d32} =~ /2/){ $d32 = "bgcolor=yellow>Misschien" } elsif($SCHED->{$userid}->{d32} =~ /3/){ $d32 = "bgcolor=#ff6633>Nee" };
+if($SCHED->{$userid}->{d33} =~ /1/){ $d33 = "bgcolor=green>Ja" } elsif($SCHED->{$userid}->{d33} =~ /2/){ $d33 = "bgcolor=yellow>Misschien" } elsif($SCHED->{$userid}->{d33} =~ /3/){ $d33 = "bgcolor=#ff6633>Nee" };
+if($SCHED->{$userid}->{d34} =~ /1/){ $d34 = "bgcolor=green>Ja" } elsif($SCHED->{$userid}->{d34} =~ /2/){ $d34 = "bgcolor=yellow>Misschien" } elsif($SCHED->{$userid}->{d34} =~ /3/){ $d34 = "bgcolor=#ff6633>Nee" };
+if($SCHED->{$userid}->{d35} =~ /1/){ $d35 = "bgcolor=green>Ja" } elsif($SCHED->{$userid}->{d35} =~ /2/){ $d35 = "bgcolor=yellow>Misschien" } elsif($SCHED->{$userid}->{d35} =~ /3/){ $d35 = "bgcolor=#ff6633>Nee" };
+if($SCHED->{$userid}->{d41} =~ /1/){ $d41 = "bgcolor=green>Ja" } elsif($SCHED->{$userid}->{d41} =~ /2/){ $d41 = "bgcolor=yellow>Misschien" } elsif($SCHED->{$userid}->{d41} =~ /3/){ $d41 = "bgcolor=#ff6633>Nee" };
+if($SCHED->{$userid}->{d42} =~ /1/){ $d42 = "bgcolor=green>Ja" } elsif($SCHED->{$userid}->{d42} =~ /2/){ $d42 = "bgcolor=yellow>Misschien" } elsif($SCHED->{$userid}->{d42} =~ /3/){ $d42 = "bgcolor=#ff6633>Nee" };
+if($SCHED->{$userid}->{d43} =~ /1/){ $d43 = "bgcolor=green>Ja" } elsif($SCHED->{$userid}->{d43} =~ /2/){ $d43 = "bgcolor=yellow>Misschien" } elsif($SCHED->{$userid}->{d43} =~ /3/){ $d43 = "bgcolor=#ff6633>Nee" };
+if($SCHED->{$userid}->{d44} =~ /1/){ $d44 = "bgcolor=green>Ja" } elsif($SCHED->{$userid}->{d44} =~ /2/){ $d44 = "bgcolor=yellow>Misschien" } elsif($SCHED->{$userid}->{d44} =~ /3/){ $d44 = "bgcolor=#ff6633>Nee" };
+if($SCHED->{$userid}->{d45} =~ /1/){ $d45 = "bgcolor=green>Ja" } elsif($SCHED->{$userid}->{d45} =~ /2/){ $d45 = "bgcolor=yellow>Misschien" } elsif($SCHED->{$userid}->{d45} =~ /3/){ $d45 = "bgcolor=#ff6633>Nee" };
+if($SCHED->{$userid}->{d51} =~ /1/){ $d51 = "bgcolor=green>Ja" } elsif($SCHED->{$userid}->{d51} =~ /2/){ $d51 = "bgcolor=yellow>Misschien" } elsif($SCHED->{$userid}->{d51} =~ /3/){ $d51 = "bgcolor=#ff6633>Nee" };
+if($SCHED->{$userid}->{d52} =~ /1/){ $d52 = "bgcolor=green>Ja" } elsif($SCHED->{$userid}->{d52} =~ /2/){ $d52 = "bgcolor=yellow>Misschien" } elsif($SCHED->{$userid}->{d52} =~ /3/){ $d52 = "bgcolor=#ff6633>Nee" };
+if($SCHED->{$userid}->{d53} =~ /1/){ $d53 = "bgcolor=green>Ja" } elsif($SCHED->{$userid}->{d53} =~ /2/){ $d53 = "bgcolor=yellow>Misschien" } elsif($SCHED->{$userid}->{d53} =~ /3/){ $d53 = "bgcolor=#ff6633>Nee" };
+if($SCHED->{$userid}->{d54} =~ /1/){ $d54 = "bgcolor=green>Ja" } elsif($SCHED->{$userid}->{d54} =~ /2/){ $d54 = "bgcolor=yellow>Misschien" } elsif($SCHED->{$userid}->{d54} =~ /3/){ $d54 = "bgcolor=#ff6633>Nee" };
+if($SCHED->{$userid}->{d55} =~ /1/){ $d55 = "bgcolor=green>Ja" } elsif($SCHED->{$userid}->{d55} =~ /2/){ $d55 = "bgcolor=yellow>Misschien" } elsif($SCHED->{$userid}->{d55} =~ /3/){ $d55 = "bgcolor=#ff6633>Nee" };
+
+if ($SCHED->{$userid}->{dateCreated} =~ /^$/) { 
+if($uid != $out{doMe}){ print "<div class=warning><font color=#c00><b>$name heeft nog geen rooster gemaakt.<br>Het is echter niet toegestaan om er een te maken vanuit een andere gebruiker.</b></font></div><p>"; } else {
+print "<h2>Welkom $name</h2>Dit is zo te zien de eerste keer dat u hier komt.<br>Klik op de knop hieronder om een nieuw rooster te maken.<p>Standaard worden alle mogelijkheden op 'Nee' gezet, maar dat merkt u vanzelf. <p>Als u zeker bent dat u het rooster al eens ingevuld heeft,<br>klik dan vooral niet op de knop en neem contact op met iemand. <p>Nog geen zin om het rooster in te vullen? Klik dan vooral niet op de knop aangezien dit vervelende statistieken oplevert.<p><form action=a/004.cgi method=post><input type=hidden name=request value=05e><input type=hidden name=datum value=$datum><input type=hidden name=tijd value=$tijd><input type=hidden name=id value=$userid><input type=submit value=\"De knop (om te beginnen).\"></form>" };
+} else {
+print <<DERP;
+<h2>Roosterbord voor $name</h2>
+<b><a href=?fn=00e&doMe=$userid>Klik hier om te bewerken</a>.</b>
+<table>
+<tr><td></td> <th width=100px>Ma</th><th width=100px>Di</th><th width=100px>Wo</th><th width=100px>Do</th><th width=100px>Vr</th></tr>
+<tr><td>08:30</td><td $d11</td><td $d21</td><td $d31</td><td $d41</td><td $d51</td></tr>
+<tr><td>10:45</td><td $d12</td><td $d22</td><td $d32</td><td $d42</td><td $d52</td></tr>
+<tr><td>13:00</td><td $d13</td><td $d23</td><td $d33</td><td $d43</td><td $d53</td></tr>
+<tr><td>15:15</td><td $d14</td><td $d24</td><td $d34</td><td $d44</td><td $d54</td></tr>
+<tr><td>19:00</td><td $d15</td><td $d25</td><td $d35</td><td $d45</td><td $d55</td></tr>
+</table>
+<p>
+<b>Notities:</b><br>
+$SCHED->{$userid}->{notes}
+<p>
+Dit rooster is voor het laatst bewerkt op $SCHED->{$userid}->{lastModified}
+DERP
+
+
+};
+
+1;
+

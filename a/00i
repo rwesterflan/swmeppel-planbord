@@ -1,0 +1,59 @@
+$Pag = $dbh->prepare("SELECT * FROM users order by lname");
+$Pag->execute();
+
+print <<WEE;
+<style>
+tr:nth-child(odd) {background: #CCC}
+tr:nth-child(even) {background: #DDD}
+table.sel tr:hover{ background-color:White;cursor:pointer; }
+</style>
+
+<script language="Javascript"> 
+ 
+  function DoNav(theUrl)
+  {
+  document.location.href = theUrl;
+  }
+ 
+</script>
+
+<h2>Kenniscentrum</h2>
+Klik op een naam om gedetailleerde informatie te bekijken, <a href=./a/knowout.cgi target=_blank>of klik hier om deze lijst af te drukken.</a>
+<p><font face=arial><table border=0 cellpadding=3 class=sel id=rollout>
+<tr><th>Naam</th><th>Kennis</th></tr>
+WEE
+$Tex= $dbh->prepare("SELECT id, icon, fullName FROM courses order by substr(id, 1, 2), fullName");
+
+while (@naw = $Pag->fetchrow()) {
+if($naw[0] != "998") { #sorry flan
+#if($naw[0] == "999"){
+ print "<tr onclick=\"DoNav('?fn=00g&doMe=$naw[0]');\"></td><td>$naw[3] <b>$naw[4] $naw[5]</b></td><td>";
+$Tex->execute();
+
+while (@der = $Tex->fetchrow()) {
+if($naw[21]){ 
+@000 = split(/&/, $naw[21]);
+foreach $000 (@000) 
+ {
+ ($001, $002) = split (/=/, $000);
+  { 
+   $c{$001} = $002; 
+  } 
+ };
+
+if($naw[21] =~ $der[0]){
+  if($c{$der[0]} =~ /1/){ print "<img src=../content/static/ico/$der[1].png title=\"Docent: $der[2]\">"; };
+  if($c{$der[0]} =~ /2/){ print "<img src=../content/static/ico/$der[1].png title=\"Assistent: $der[2]\">"; }
+  if($c{$der[0]} =~ /0/){ print "<img src=../content/static/ico/.png title=\"Kan niet: $der[2]\">"; }
+} else { 
+  if($c{$der[0]} =~ /0/){ print "<img src=../content/static/ico/.png title=\"Kan niet: $der[2]\">"; }
+};
+
+};
+};
+print "</td></tr>\n";
+};
+}
+print "</table><hr><p>";
+
+1;

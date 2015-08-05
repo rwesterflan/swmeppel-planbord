@@ -1,0 +1,75 @@
+if($out{sortorder} =~ /^$/){ $out{sortorder} = "distribution.city"; };
+$Pag = $dbh->prepare("SELECT distribution.id, distribution.name, distribution.address1, distribution.address2, distribution.postal, distribution.city, distribution.phone1, distribution.phone2, distribution.email, distribution.amount, distribution.contact, distribution.distributor, distribution.notes, users.id, users.fname, users.mname, users.lname FROM distribution left join users on distribution.distributor = users.id order by $out{sortorder} asc");
+$Pag->execute();
+
+print <<WEE;
+<script language="Javascript"> 
+ 
+  function DoNav(theUrl)
+  {
+  document.location.href = theUrl;
+  }
+ 
+</script>
+
+<style>
+table.sel tr:hover{ background-color:White;cursor:pointer; }
+tr:nth-child(odd) {background: #CCC}
+tr:nth-child(even) {background: #DDD}
+</style>
+
+<h2>Folderdistributie</h2>
+Indien er veranderingen moeten komen in onderstaande lijst, dit graag per mail doorgeven aan <a href=mailto:frillie48\@gmail.com?subject=Folderdistributie>Illie Muller</a> (beheerder folderdistributie)
+WEE
+
+print "<p>";
+if($userid != "23"){ 
+ $icanhasbutton = "no";
+} else {
+print "Klik op een naam om een distributiepunt te bewerken.<br>";
+print "Klik <a href=?fn=01j&doMe=new>hier</a> om een nieuw punt bij te maken.<p>";
+};
+
+print <<WEE;
+Sorteer deze lijst op: <a href=?fn=00j&sortorder=distribution.city>Plaatsnaam</a> | <a href=?fn=00j&sortorder=distribution.name>Naam distributiepunt</a> | <a href=?fn=00j&sortorder=distribution.amount>Hoeveelheden</a> | <a href=?fn=00j&sortorder=users.lname>Achternaam bezorger</a>	
+<p><font face=arial><table border=0 cellpadding=3 class=sel id=rollout>
+<tr><th>Distributiepunt</th><th>Plaats</th><th>Telefoonnummer</th><th>Hoeveelheid</th><th>Verspreid door</th></tr>
+WEE
+
+while (@naw = $Pag->fetchrow()) {
+if($naw[5] =~ /SPECIAL/){ 
+ if($naw[0] =~ /^46$/){ $opend = $naw[9]; };
+ if($naw[0] =~ /^47$/){ $admini = $naw[9]; };
+ if($naw[0] =~ /^45$/){ $eigen = $naw[9]; };
+ if($naw[0] =~ /^48$/){ $gedrukt = $naw[9]; };
+} else {
+ if($userid != "23"){ 
+ print "<tr><td>$naw[1]</td><td>$naw[5]</td><td>$naw[6] $naw[7]</td><td>$naw[9]</td><td>$naw[14] <b>$naw[15] $naw[16]</b></td><td><img src=./content/static/disdel.png style=border-style:none; align=right></td></tr>\n";
+ } else {
+ print "<tr onclick=\"DoNav('?fn=01j&doMe=$naw[0]');\"><td>$naw[1]</td><td>$naw[5]</td><td>$naw[6] $naw[7]</td><td>$naw[9]</td><td>$naw[14] <b>$naw[15] $naw[16]</b></td><td><a href=./a/004.cgi?request=02j&doMe=$naw[0] onclick=\"return confirm('Weet u het zeker? Dit kan niet ongedaan gemaakt worden!\');\"><img src=./content/static/del.png style=border-style:none; align=right></a></td></tr>\n";
+ };
+$statfld = $statfld + $naw[9];
+$stattotal++;
+};
+
+};
+
+print "</table><hr><p>";
+
+$remain = $gedrukt - $statfld;
+#$fldavg = $gedrukt / $statfld;
+print <<durr;
+<p>
+<table>
+<tr><td colspan=2><b>Statistieken</b></th></tr>
+<tr><td>Totaal aantal distributiepunten:</td><td>$stattotal</td><tr>
+<tr><td>Totaal verspreid:</td><td>$statfld</td><tr>
+<tr><td>Waarvan Cursusadministratie</td><td>$admini</td></tr>
+<tr><td>Waarvan voor eigen gebruik</td><td>$eigen</td></tr>
+<tr><td>Waarvan voor open dagen</td><td>$opend</td></tr>
+<tr><td>Totaal aantal folders</td><td>$gedrukt</td></tr>
+<tr><td>Dus er zijn er nog over:</td><td>$remain</td></tr>
+</table>
+durr
+
+1;

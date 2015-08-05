@@ -1,0 +1,15 @@
+$icanhasbutton="yes";
+
+
+print <<DURR;
+
+<h2>Standaardwachtwoord wijzigen</h2>
+<form action=a/004.cgi method=post><input type=hidden name=request value=00y>
+
+<table>
+<tr><td>Nieuw wachtwoord:</td><td><input type=password name=newPass1></td></tr>
+<tr><td>Nieuw wachtwoord (controle):</td><td><input type=password name=newPass2></td></tr>
+</table>
+
+DURR
+

@@ -1,0 +1,64 @@
+$icanhasbutton="yes";
+
+if($out{warning} =~ /1/){ print "<div class=info><b>Enquete is verstuurd</b><br>Bedankt voor uw deelname.</div>"; $icanhasbutton="no"; } else {
+
+if($out{warning} =~ /2/){ print "<div class=warning><b>Er zijn te veel velden niet of onjuist ongevoerd.<br>Probeer het opnieuw.</div>"; };
+$Pag = $dbh->prepare("SELECT id, fullName FROM courses order by fullName asc");
+$Pag->execute();
+
+print <<DURR;
+<style>
+tr:nth-child(odd) {background: #CCC}
+tr:nth-child(even) {background: #DDD}
+table.sel tr:hover{ background-color:White;cursor:pointer; }
+</style>
+
+<h1>Enqueteformulier</h1>
+Seniorweb Meppel hecht grote waarde aan de kwaliteit van haar opleidingen.<br>
+Daarom vragen wij u dit evaluatieformulier in te vullen, zodat wij in de toekomst rekening kunnen houden met uw mening en wensen.
+<p>
+<form action=a/004.cgi method=post>
+<input type=hidden name=request value=00b>
+<input type=hidden name=enq value=1>
+<table>
+<tr><td>Cursus</td>  <td><select name=courseID style="width:235px;"><option disabled selected>Kies een cursus uit de lijst...</option>
+DURR
+
+while (@naw = $Pag->fetchrow()) {
+ print "<option value=$naw[0]>$naw[1]</option>\n";
+};
+
+
+print <<DURR;
+</td></tr>
+<tr><td>Plaats en datum</td><td><input type=text name=courseDate value="$datum, Meppel" style="width:235px;"></td></tr>
+
+<tr><td>Hoe kwam u bij deze cursus terecht?</td> <td>
+ <select name=courseRef style="width:235px;">
+  <option value=newsp>Krant</option>
+  <option value=relative>Leerkracht of kennis</option>
+  <option value=website>Website</option>
+  <option value=booklet>Cursusboekje</option>
+  <option value=other>Anders</option>
+ </select></td></tr><tr><td>Indien ergens anders, waar?</td><td><input type=text name=courseRefOther style="width:235px;"></td></tr>
+<tr><td colspan=2>&nbsp;</td></tr>
+<tr><td>Heeft u geleerd wat u wilde weten?</td><td><select name=c1 style="width:235px;"><option disabled selected>Kies...</option><option value=1>Matig</option><option value=2>Goed</option><option value=3>Uitstekend</option></select></td></tr>
+<tr><td>Kon u goed meekomen?</td><td><select name=c2 style="width:235px;"><option disabled selected>Kies...</option><option value=1>Matig</option><option value=2>Goed</option><option value=3>Uitstekend</option></select></td></tr>
+<tr><td>Bent u tevreden over de cursus?</td><td><select name=c3 style="width:235px;"><option disabled selected>Kies...</option><option value=1>Matig</option><option value=2>Goed</option><option value=3>Uitstekend</option></select></td></tr>
+<tr><td>Hoe vond u het lesmateriaal?</td><td><select name=c4 style="width:235px;"><option disabled selected>Kies...</option><option value=1>Matig</option><option value=2>Goed</option><option value=3>Uitstekend</option></select></td></tr>
+<tr><td>Hoe vond u de sfeer in het leslokaal?</td><td><select name=c5 style="width:235px;"><option disabled selected>Kies...</option><option value=1>Matig</option><option value=2>Goed</option><option value=3>Uitstekend</option></select></td></tr>
+<tr><td>Hoe heeft u het lesgeven ervaren?</td><td><select name=c6 style="width:235px;"><option disabled selected>Kies...</option><option value=1>Matig</option><option value=2>Goed</option><option value=3>Uitstekend</option></select></td></tr>
+<tr><td>Denkt u in de toekomst nog een cursus te willen volgen?</td><td><select name=c7 style="width:235px;"><option disabled selected>Ja/nee</option><option value=1>Ja</option><option value=0>Nee</option></select></td></tr>
+<tr><td colspan=2>&nbsp;</td></tr>
+<tr><td>Welke suggesties heeft u met betrekking tot de gevolgde cursus?</td><td><input type=text name=courseSuggestions style="width:235px;"></td></tr>
+<tr><td>Hoe verliep het contact met de cursusadministratie?</td><td><input type=text name=courseContact style="width:235px;"></td></tr>
+<tr><td>Welke opleidingen vindt u dat wij nog meer zou moeten organiseren?</td><td><input type=text name=courseIdeas style="width:235px;"></td></tr>
+<tr><td colspan=2>&nbsp;</td></tr>
+<tr><td>Wat is uw e-mailadres?</td><td><input type=text name=courseEmail style="width:235px;"></td></tr>
+<tr><td colspan=2><input type=checkbox name=courseKeepMePosted id=kmp><label for=kmp>Ik wil op de hoogte gehouden worden van de opleidingen en de activiteiten van SeniorWeb Meppel</label></td></tr>
+<tr><td colspan=2>&nbsp;</td></tr>
+<tr><td colspan=2><b>Controleer voordat u op <i>Volgende</i> klikt of alle velden zijn ingevoerd.</b></td></tr>
+</table>
+DURR
+
+};

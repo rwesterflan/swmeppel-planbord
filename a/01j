@@ -1,0 +1,53 @@
+$icanhasbutton="yes";
+
+$Pag = $dbh->prepare("SELECT id, fname, mname, lname FROM users order by lname asc");
+$Pag->execute();
+
+if($out{doMe} =~ /^new$/){
+#donothing 
+} else {
+$did = $out{doMe};
+$ConT = $dbh->prepare("SELECT * FROM distribution where id='$did'");
+$CONTENT = $dbh->selectall_hashref("SELECT * FROM distribution where id='$did'", "id");
+$ConT->execute();
+};
+
+print <<DURR;
+<style>
+tr:nth-child(odd) {background: #CCC}
+tr:nth-child(even) {background: #DDD}
+table.sel tr:hover{ background-color:White;cursor:pointer; }
+</style>
+
+<h2>Informatie over distributiepunt</h2>
+<form action=a/004.cgi method=post>
+<input type=hidden name=request value=01j>
+<input type=hidden name=doMe value=$out{doMe}>
+
+<table>
+<tr><td>Naam</td><td><input type=text name=name style="width:235px;" value="$CONTENT->{$did}->{name}"></td></tr>
+<tr><td>Adres 1</td><td><input type=text name=address1 style="width:235px;" value="$CONTENT->{$did}->{address1}"></td></tr>
+<tr><td>Adres 2</td><td><input type=text name=address2 style="width:235px;" value="$CONTENT->{$did}->{address2}"></td></tr>
+<tr><td>Postcode</td><td><input type=text name=postal style="width:235px;" value="$CONTENT->{$did}->{postal}"></td></tr>
+<tr><td>Plaats</td><td><input type=text name=city style="width:235px;" value="$CONTENT->{$did}->{city}"></td></tr>
+<tr><td>Telefoonnummer 1</td><td><input type=text name=phone1 style="width:235px;" value="$CONTENT->{$did}->{phone1}"></td></tr>
+<tr><td>Telefoonnummer 2</td><td><input type=text name=phone2 style="width:235px;" value="$CONTENT->{$did}->{phone2}"></td></tr>
+<tr><td>Emailadres</td><td><input type=text name=email style="width:235px;" value="$CONTENT->{$did}->{email}"></td></tr>
+<tr><td>Contactpersoon</td><td><input type=text name=contact style="width:235px;" value="$CONTENT->{$did}->{contact}"></td></tr>
+<tr><td>Hoeveelheid folders</td><td><input type=text name=amount style="width:235px;" value="$CONTENT->{$did}->{amount}"></td></tr>
+<tr><td>Distributeur</td>  <td><select name=distributor style="width:235px;"><option disabled selected>Kies een gebruiker uit de lijst...</option>
+DURR
+
+while (@naw = $Pag->fetchrow()) {
+if($CONTENT->{$did}->{distributor} =~ /^$naw[0]$/){ $selector="selected"};
+ print "<option $selector value=\"$naw[0]\">$naw[1] $naw[2] $naw[3]</option>\n";
+$selector="";
+};
+
+
+print <<DURR;
+</td></tr>
+<tr><td>Aantekeningen</td><td><textarea name=notes style="width:235px;" rows=4>$CONTENT->{$did}->{notes}</textarea></td></tr>
+</table>
+DURR
+

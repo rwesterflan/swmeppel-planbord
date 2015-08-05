@@ -1,0 +1,31 @@
+$Pag = $dbh->prepare("SELECT * FROM sms order by id desc limit 0,10");
+$Pag->execute();
+
+print <<DURR;
+<style>
+tr:nth-child(odd) {background: #CCC}
+tr:nth-child(even) {background: #DDD}
+table.sel tr:hover{ background-color:White;cursor:pointer; }
+</style>
+<h2>Welkom in Jimmy, het SWMeppel Roostersysteem.</h2>
+<font size=1>(Iemand een betere naam?)</font><p>
+<h3>Berichtenbox</h3>
+<table>
+<tr><th width=150px>Tijdstempel</th><th width=150px>Naam</th><th width=350px colspan=>Bericht</th><th>!</th></tr>
+DURR
+
+if($defaultpasswordwarning =~ /1/){
+ print "<tr><td>$datum, $tijd</td><td><i>Systeemmelding</i></td><td>Je gebruikt het standaardwachtwoord! Klik <a href=?fn=00r>hier</a> om te wijzigen.</td><td><img src=../content/static/important32.png></td></tr>\n";
+};
+
+while (@naw = $Pag->fetchrow()) {
+if($naw[5] =~ "belangrijk"){ $isFlag = "<img src=../content/static/important32.png>" };
+if($naw[5] =~ "update"){ $isFlag = "<img src=../content/static/new32.png>" };
+if($naw[5] =~ "test"){ $isFlag = "<img src=../content/static/test.png>" };
+if(!$isFlag){ $isFlag = "<img src=../content/static/msg.png>"; };
+ print "<tr><td>$naw[1], $naw[2]</td><td>$naw[3]</td><td>$naw[4]</td><td>$isFlag</td></tr>\n";
+$isFlag = "";
+};
+print "</table>";
+print "<a href=?fn=00w>Klik hier voor alle berichten</a>";
+

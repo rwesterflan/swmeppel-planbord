@@ -1,0 +1,67 @@
+$icanhasbutton="yes";
+
+$ConT = $dbh->prepare('SELECT id, fname, mname, lname, courses FROM users');
+$CONTENT = $dbh->selectall_hashref('SELECT id, fname, mname, lname, courses FROM users', 'id');
+$ConT->execute();
+
+@000 = split(/&/, $CONTENT->{$out{doMe}}->{courses});
+foreach $000 (@000) 
+ {
+ ($001, $002) = split (/=/, $000);
+  { 
+   $c{$001} = $002; 
+  } 
+  };
+
+print <<derp;
+<style>
+tr:nth-child(odd) {background: #CCC}
+tr:nth-child(even) {background: #DDD}
+table.sel tr:hover{ background-color:White;cursor:pointer; }
+</style>
+<font face=verdana><form action=a/004.cgi method=post>
+<h2>Kennisprofiel van $CONTENT->{$out{doMe}}->{fname} $CONTENT->{$out{doMe}}->{mname} $CONTENT->{$out{doMe}}->{lname}</h2>
+derp
+
+if(!$out{doMe}) {$out{doMe} = $userid};
+if($userid != $out{doMe}){ 
+ print "<div class=warning><font color=#c00><b>Je kunt hier niks bewerken omdat dit het profiel van iemand anders is.</b></font>";
+ $lock = "disabled"; 
+ $icanhasbutton = "no";
+  if($level =~ /1/){ 
+   print "<br><font color=green>Maar omdat je beheerder bent staan we dat toe.</font>"; 
+   $icanhasbutton = "yes"; 
+   $lock=""; 
+  }; 
+ print "</div>";
+};
+print "<p>";
+if(!$CONTENT->{$out{doMe}}->{courses}){ 
+ print "<div class=info><b>Dit formulier is nog niet ingevuld.</b></div>\n"; 
+};
+
+$Pag = $dbh->prepare("SELECT * FROM courses ORDER BY substring(id, 1, 2) asc, fullName asc ");
+$Pag->execute();
+
+if($out{success} =~ /1/){ print "<div class=info><font color=green>Deze gegevens zijn succesvol bijgewerkt</font></div><p>"; };
+
+print <<DURR;
+<table cellpadding=0>
+<tr><th colspan=3><b>Geef hier op welke cursussen je kunt geven.</th></tr>
+DURR
+
+while (@naw = $Pag->fetchrow()) {
+ if($c{$naw[0]}){
+  if($c{$naw[0]} =~ /0/){ $mark0 = "selected"; } elsif($c{$naw[0]} =~ /1/){ $mark1 = "selected"; } elsif($c{$naw[0]} =~ /2/){ $mark2 = "selected"; };
+ };
+ if($naw[0] =~ /^5/){ $wlbl = "(Workshop)"; };
+ print "<tr><td width=50px><select name=$naw[0] $lock><option value=\"0\" $mark0>Nee</option><option value=\"1\" $mark1>Docent</option><option value=\"2\" $mark2>Assistent</option></select></td><td><img src=\"./content/static/ico/$c{$naw[0]}.png\"><img src=\"./content/static/ico/$naw[9].png\"></td><td>$wlbl $naw[3]</td></tr>\n";
+ $mark0=""; $mark1=""; $mark2=""; $wlbl="";
+};
+
+print "<input type=hidden name=request value=00g>";
+print "<input type=hidden name=doMe value=$out{doMe}>";
+print "</table>";
+
+1;
+

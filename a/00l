@@ -1,0 +1,43 @@
+$Pag = $dbh->prepare("SELECT users.id, users.email, users.initials, users.mname, users.lname, users.phonehome, users.phonemobile, schedule.lastModified FROM users left join schedule on users.id = schedule.id order by schedule.lastModified desc");
+$f1d = "<b>";
+$f2d = "</b>";
+
+
+$Pag->execute();
+
+print <<WEE;
+<script language="Javascript"> 
+ 
+  function DoNav(theUrl)
+  {
+  document.location.href = theUrl;
+  }
+ 
+</script>
+
+<style>
+table.sel tr:hover{ background-color:White;cursor:pointer; }
+</style>
+
+<h2>Ingevulde roosters</h2>
+Let op de kolom 'Laatst bijgewerkt' - als dit niet bij iemand vermeld staat, is er nog geen rooster ingevuld.<br>
+Voor overzicht word er alleen een naam, telefoonnummer en een knop voor e-mail weergegeven. <br>
+De rest van de gegevens zijn te vinden op de pagina Medewerkers.<br>
+Klik op een naam om dat rooster te bekijken.<p>
+<p><font face=arial><table border=0 cellpadding=3 class=sel id=rollout>
+<tr><th></th><th>Naam</th><th>Telefoonnummer</th><th>Laatst bijgewerkt</th></tr>
+WEE
+
+while (@naw = $Pag->fetchrow()) {
+$stattotal++;
+if($naw[15] =~ /doc/){ $statdoc++ };
+
+ print "<tr onclick=\"DoNav('?fn=00f&doMe=$naw[0]');\"><td><a href=\"mailto:$naw[1]\"><img src=./content/static/email.png></a></td><td>$naw[2] $naw[3] $naw[4]</td><td>$naw[5] / $naw[6]</td><td>$naw[7]</td></tr>\n";
+}
+
+#<td><a href=?fn=01n&doMe=$naw[0]><img src=./content/static/edit.png style=border-style:none; align=right></a></td>
+
+print "</table><hr><p>";
+
+
+1;

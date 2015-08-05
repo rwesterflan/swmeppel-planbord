@@ -1,0 +1,48 @@
+$Pag = $dbh->prepare("SELECT users.id, users.email, users.initials, users.mname, users.lname, users.phonehome, users.phonemobile, schedule.lastModified, users.swtask FROM users left join schedule on users.id = schedule.id order by schedule.lastModified desc");
+$f1d = "<b>";
+$f2d = "</b>";
+
+$Pag->execute();
+
+
+
+
+print <<WEE;
+<script language="Javascript"> 
+ 
+  function DoNav(theUrl)
+  {
+  document.location.href = theUrl;
+  }
+ 
+</script>
+
+<style>
+table.sel tr:hover{ background-color:White;cursor:pointer; }
+tr:nth-child(odd) {background: #CCC}
+tr:nth-child(even) {background: #DDD}
+</style>
+
+<h2>Ingevulde roosters</h2>
+Klik op een naam om dat individuele rooster te bekijken.<br>
+Onthoud dat je het snelste terugkan met de Terug-knop in de browser, oftewel Backspace, of de muiswiel-links op sommige Logitech muizen.<p>
+<a href=a/schedout.cgi target=_blank>Afdrukweergave met individuele roosters</a><br>
+<a href=a/schedout.cgi?noTotals=1 target=_blank>Afdrukweergave zonder individuele roosters</a>
+<p>
+<b><a href=?fn=00h>Klik hier voor een samenvatting van de roosters</a><br></b>
+<p><font face=arial><table border=0 cellpadding=3 class=sel id=rollout>
+<tr><th></th><th>Naam</th><th>Telefoonnummer</th><th></th><th>Laatst bijgewerkt</th></tr>
+WEE
+
+while (@naw = $Pag->fetchrow()) {
+$stattotal++;
+if($naw[15] =~ /doc/){ $statdoc++ };
+
+ print "<tr onclick=\"DoNav('?fn=00f&doMe=$naw[0]');\"><td><a href=\"mailto:$naw[1]\"><img src=./content/static/email24.png></a></td><td>$naw[2] $naw[3] $naw[4]</td><td>$naw[5] / $naw[6]</td><td>$naw[8]</td><td>$naw[7]</td></tr>\n";
+}
+
+#<td><a href=?fn=01n&doMe=$naw[0]><img src=./content/static/edit.png style=border-style:none; align=right></a></td>
+
+print "</table><hr><p>";
+
+1;

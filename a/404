@@ -1,0 +1,8 @@
+print <<WEE;
+<center><img src=./content/static/panic.gif><br>Als je deze pagina ziet ben je waarschijnlijk ergens waar je niet wezen moet.
+WEE
+
+
+
+
+

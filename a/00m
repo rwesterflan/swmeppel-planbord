@@ -1,0 +1,62 @@
+$SCHE = $dbh->selectall_hashref(" select coursesched.day, coursesched.courseid, courses.id, courses.shortName, courses.fullName, courses.internalid, courses.icon from coursesched left join courses on coursesched.courseid = courses.id", "day");
+if($level=~/0/){ print "<b>Dit is nog niet 100% functioneel</b>, ontleen hier vooral geen rechten aan."; };
+print <<DURR;
+<style>
+tr:nth-child(odd) {background: #ddd}
+tr:nth-child(even) {background: #eee}
+</style>
+<h2>Cursusrooster **EXPERIMENTEEL*</h2>
+DURR
+
+if($level=~/1/){ print "<a href=?fn=00c>Klik hier om te bewerken</a>"; };
+print <<DURR;
+<table class=sel>
+<tr><td>     </td><th width=30px>Ma</th><th width=30px>Di</th><th width=30px>Wo</th><th width=30px>Do</th><th width=30px>Vr</th></tr>
+<tr><td>08:30</td><td> <img src=./content/static/ico/$SCHE->{d11a}->{icon}.png title="$SCHE->{d11a}->{fullName}"><br>$SCHE->{d11a}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d21a}->{icon}.png title="$SCHE->{d21a}->{fullName}"><br>$SCHE->{d21a}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d31a}->{icon}.png title="$SCHE->{d31a}->{fullName}"><br>$SCHE->{d31a}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d41a}->{icon}.png title="$SCHE->{d41a}->{fullName}"><br>$SCHE->{d41a}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d51a}->{icon}.png title="$SCHE->{d51a}->{fullName}"><br>$SCHE->{d51a}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td></tr>
+<tr><td>     </td><td> <img src=./content/static/ico/$SCHE->{d11b}->{icon}.png title="$SCHE->{d11b}->{fullName}"><br>$SCHE->{d11b}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d21b}->{icon}.png title="$SCHE->{d21b}->{fullName}"><br>$SCHE->{d21b}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d31b}->{icon}.png title="$SCHE->{d31b}->{fullName}"><br>$SCHE->{d31b}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d41b}->{icon}.png title="$SCHE->{d41b}->{fullName}"><br>$SCHE->{d41b}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d51b}->{icon}.png title="$SCHE->{d51b}->{fullName}"><br>$SCHE->{d51b}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td></tr>
+<tr><td>10:45</td><td> <img src=./content/static/ico/$SCHE->{d12a}->{icon}.png title="$SCHE->{d12a}->{fullName}"><br>$SCHE->{d12a}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d22a}->{icon}.png title="$SCHE->{d22a}->{fullName}"><br>$SCHE->{d22a}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d32a}->{icon}.png title="$SCHE->{d32a}->{fullName}"><br>$SCHE->{d32a}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d42a}->{icon}.png title="$SCHE->{d42a}->{fullName}"><br>$SCHE->{d42a}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d52a}->{icon}.png title="$SCHE->{d52a}->{fullName}"><br>$SCHE->{d52a}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td></tr>
+<tr><td>     </td><td> <img src=./content/static/ico/$SCHE->{d12b}->{icon}.png title="$SCHE->{d12b}->{fullName}"><br>$SCHE->{d12b}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d22b}->{icon}.png title="$SCHE->{d22b}->{fullName}"><br>$SCHE->{d22b}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d32b}->{icon}.png title="$SCHE->{d32b}->{fullName}"><br>$SCHE->{d32b}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d42b}->{icon}.png title="$SCHE->{d42b}->{fullName}"><br>$SCHE->{d42b}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d52b}->{icon}.png title="$SCHE->{d52b}->{fullName}"><br>$SCHE->{d52b}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td></tr>
+<tr><td>13:00</td><td> <img src=./content/static/ico/$SCHE->{d13a}->{icon}.png title="$SCHE->{d13a}->{fullName}"><br>$SCHE->{d13a}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d23a}->{icon}.png title="$SCHE->{d23a}->{fullName}"><br>$SCHE->{d23a}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d33a}->{icon}.png title="$SCHE->{d33a}->{fullName}"><br>$SCHE->{d33a}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d43a}->{icon}.png title="$SCHE->{d43a}->{fullName}"><br>$SCHE->{d43a}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d53a}->{icon}.png title="$SCHE->{d53a}->{fullName}"><br>$SCHE->{d53a}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td></tr>
+<tr><td>     </td><td> <img src=./content/static/ico/$SCHE->{d13b}->{icon}.png title="$SCHE->{d13b}->{fullName}"><br>$SCHE->{d13b}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d23b}->{icon}.png title="$SCHE->{d23b}->{fullName}"><br>$SCHE->{d23b}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d33b}->{icon}.png title="$SCHE->{d33b}->{fullName}"><br>$SCHE->{d33b}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d43b}->{icon}.png title="$SCHE->{d43b}->{fullName}"><br>$SCHE->{d43b}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d53b}->{icon}.png title="$SCHE->{d53b}->{fullName}"><br>$SCHE->{d53b}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td></tr>
+<tr><td>15:15</td><td> <img src=./content/static/ico/$SCHE->{d14a}->{icon}.png title="$SCHE->{d14a}->{fullName}"><br>$SCHE->{d14a}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d24a}->{icon}.png title="$SCHE->{d24a}->{fullName}"><br>$SCHE->{d24a}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d34a}->{icon}.png title="$SCHE->{d34a}->{fullName}"><br>$SCHE->{d34a}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d44a}->{icon}.png title="$SCHE->{d44a}->{fullName}"><br>$SCHE->{d44a}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d54a}->{icon}.png title="$SCHE->{d54a}->{fullName}"><br>$SCHE->{d54a}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td></tr>
+<tr><td>     </td><td> <img src=./content/static/ico/$SCHE->{d14b}->{icon}.png title="$SCHE->{d14b}->{fullName}"><br>$SCHE->{d14b}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d24b}->{icon}.png title="$SCHE->{d24b}->{fullName}"><br>$SCHE->{d24b}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d34b}->{icon}.png title="$SCHE->{d34b}->{fullName}"><br>$SCHE->{d34b}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d44b}->{icon}.png title="$SCHE->{d44b}->{fullName}"><br>$SCHE->{d44b}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d54b}->{icon}.png title="$SCHE->{d54b}->{fullName}"><br>$SCHE->{d54b}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td></tr>
+<tr><td>19:00</td><td> <img src=./content/static/ico/$SCHE->{d15a}->{icon}.png title="$SCHE->{d15a}->{fullName}"><br>$SCHE->{d15a}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d25a}->{icon}.png title="$SCHE->{d25a}->{fullName}"><br>$SCHE->{d25a}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d35a}->{icon}.png title="$SCHE->{d35a}->{fullName}"><br>$SCHE->{d35a}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d45a}->{icon}.png title="$SCHE->{d45a}->{fullName}"><br>$SCHE->{d45a}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d55a}->{icon}.png title="$SCHE->{d55a}->{fullName}"><br>$SCHE->{d55a}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td></tr>
+<tr><td>     </td><td> <img src=./content/static/ico/$SCHE->{d15b}->{icon}.png title="$SCHE->{d15b}->{fullName}"><br>$SCHE->{d15b}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d25b}->{icon}.png title="$SCHE->{d25b}->{fullName}"><br>$SCHE->{d25b}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d35b}->{icon}.png title="$SCHE->{d35b}->{fullName}"><br>$SCHE->{d35b}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d45b}->{icon}.png title="$SCHE->{d45b}->{fullName}"><br>$SCHE->{d45b}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td><td><img src=./content/static/ico/$SCHE->{d55b}->{icon}.png title="$SCHE->{d55b}->{fullName}"><br>$SCHE->{d55b}->{fullName}<br>Docent:<br>Assistent1:<br>Assistent2:</td></tr>
+</table>
+
+Houd de muis op een icoontje hierboven om te zien welke cursus het is.
+<p>
+DURR
+
+$Pag = $dbh->prepare("SELECT * FROM courses order by fullName asc");
+$Pag->execute();
+
+print <<DURR;
+<style>
+tr:nth-child(odd) {background: #CCC}
+tr:nth-child(even) {background: #DDD}
+table.sel tr:hover{ background-color:White;cursor:pointer; }
+</style>
+
+<h2>Cursussen</h2>
+DURR
+
+if($level=~/1/){
+print "Hier kunnen de cursussen gedefinieerd worden.<br>";
+} else {
+print "<b>Dit is nog niet 100% functioneel</b>, ontleen hier vooral geen rechten aan.";
+};
+
+print <<DURR;
+<p>
+<table cellpadding=0>
+<tr><th>ID</th><th>sw-ID</th><th></th><th width=500px>Volledige naam</th><th>Niveau</th><th>Duur</th></tr>
+DURR
+
+while (@naw = $Pag->fetchrow()) {
+#$fullName = substr $naw[3], 0, 25;
+ print "<tr><td width=50px><a href=?fn=00A&doMe=$naw[0]>$naw[0]</a></td><td width=50px>$naw[1]</td><td><img src=\"./content/static/ico/$naw[9].png\"></td><td><a href=?fn=00a&filter=$naw[2]>$naw[3]</a></td><td>$naw[6]</td><td>$naw[8]</td></tr>\n";
+};
+
+print "</table>";
+

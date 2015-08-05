@@ -1,0 +1,24 @@
+$SCHE = $dbh->selectall_hashref(" select coursesched.day, coursesched.courseid, courses.id, courses.shortName, courses.internalid, courses.icon from coursesched left join courses on coursesched.courseid = courses.id", "day");
+
+print <<DURR;
+<style>
+tr:nth-child(odd) {background: #ddd}
+tr:nth-child(even) {background: #eee}
+</style>
+
+
+<h2>Cursusrooster **EXPERIMENTEEL*</h2>
+<table width=600px>
+<tr><td></td> <th width=100px>Ma</th><th width=100px>Di</th><th width=100px>Wo</th><th width=100px>Do</th><th width=100px>Vr</th></tr>
+<tr><td>09:30</td><td>($SCHE->{d11}->{internalid}) $SCHE->{d11}->{shortName}</td><td>($SCHE->{d21}->{internalid}) $SCHE->{d21}->{shortName}</td><td>($SCHE->{d31}->{internalid}) $SCHE->{d31}->{shortName}</td><td>($SCHE->{d41}->{internalid}) $SCHE->{d41}->{shortName}</td><td>($SCHE->{d51}->{internalid}) $SCHE->{d51}->{shortName}</td>
+<tr><td>11:00</td><td>($SCHE->{d12}->{internalid}) $SCHE->{d12}->{shortName}</td><td>($SCHE->{d22}->{internalid}) $SCHE->{d22}->{shortName}</td><td>($SCHE->{d32}->{internalid}) $SCHE->{d32}->{shortName}</td><td>($SCHE->{d42}->{internalid}) $SCHE->{d42}->{shortName}</td><td>($SCHE->{d52}->{internalid}) $SCHE->{d52}->{shortName}</td>
+<tr><td>13:15</td><td>($SCHE->{d13}->{internalid}) $SCHE->{d13}->{shortName}</td><td>($SCHE->{d23}->{internalid}) $SCHE->{d23}->{shortName}</td><td>($SCHE->{d33}->{internalid}) $SCHE->{d33}->{shortName}</td><td>($SCHE->{d43}->{internalid}) $SCHE->{d43}->{shortName}</td><td>($SCHE->{d53}->{internalid}) $SCHE->{d53}->{shortName}</td>
+<tr><td>15:15</td><td>($SCHE->{d14}->{internalid}) $SCHE->{d14}->{shortName}</td><td>($SCHE->{d24}->{internalid}) $SCHE->{d24}->{shortName}</td><td>($SCHE->{d34}->{internalid}) $SCHE->{d34}->{shortName}</td><td>($SCHE->{d44}->{internalid}) $SCHE->{d44}->{shortName}</td><td>($SCHE->{d54}->{internalid}) $SCHE->{d54}->{shortName}</td>
+<tr><td>19:00</td><td>($SCHE->{d15}->{internalid}) $SCHE->{d15}->{shortName}</td><td>($SCHE->{d25}->{internalid}) $SCHE->{d25}->{shortName}</td><td>($SCHE->{d35}->{internalid}) $SCHE->{d35}->{shortName}</td><td>($SCHE->{d45}->{internalid}) $SCHE->{d45}->{shortName}</td><td>($SCHE->{d55}->{internalid}) $SCHE->{d55}->{shortName}</td>
+</table>
+
+<p>
+DURR
+
+
+

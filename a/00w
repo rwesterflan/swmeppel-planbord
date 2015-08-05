@@ -1,0 +1,60 @@
+$icanhasbutton="yes";
+
+$ConT = $dbh->prepare("SELECT id, initials, lname FROM users where id='$userid'");
+$CONTENT = $dbh->selectall_hashref("SELECT id, initials, lname FROM users where id='$userid'", "id");
+$ConT->execute();
+
+$name = $CONTENT->{$userid}->{initials}." ".$CONTENT->{$userid}->{lname};
+
+$Pag = $dbh->prepare("SELECT * FROM sms order by id desc");
+$Pag->execute();
+
+print <<DURR;
+<style>
+tr:nth-child(odd) {background: #CCC}
+tr:nth-child(even) {background: #DDD}
+table.sel tr:hover{ background-color:White;cursor:pointer; }
+</style>
+
+<h2>Berichtenbox</h2>
+Hier kan iedereen berichten achterlaten.<br>
+Oorspronkelijk bedoeld voor mededelingen, maar iedereen mag wat neerzetten.<br>
+<b>Let op dat iedereen deze berichten kan lezen, gebruik dit dus niet voor problemen of directe vragen.</b><br>
+Stuur deze per e-mail naar <a href=mailto:info\@rwesterh.nl>info\@rwesterh.nl</a>
+<hr>
+<b>Plaats een bericht:</b><br>
+<form action=a/004.cgi method=post><input type=hidden name=request value=00w><input type=hidden name=byUser value="$name"><input type=hidden name=date value=$datum><input type=hidden name=time value=$tijd>
+DURR
+
+if($out{warning} =~ /emptyMessage/i){ print "<div class=warning><font color=#c00>Geen bericht ingevuld</font></div><p>Bericht: <input type=text name=message style=\"width:535px; border:2px solid #c00;\"><p>"; 
+} else {
+print "Bericht: <input type=text name=message style=width:535px;><p>";
+};
+
+if($level =~ /1/){ print "Beheerder: Aanvinken als je een speciaal icoontje achter je bericht wilt:<input type=checkbox name=flagOn><select name=isFlagged><option value=\"belangrijk\">Belangrijk</option><option value=\"test\">Test</option><option value=\"update\">Update in roostersysteem</option></select>"; };
+print <<DURR;
+<p>
+<hr>
+Ingekomen berichten:
+<p>
+<table>
+<tr><th></th><th width=150px>Tijdstempel</th><th width=150px>Naam</th><th width=350px>Bericht</th><th></th></tr>
+DURR
+
+
+while (@naw = $Pag->fetchrow()) {
+if($naw[5] =~ "belangrijk"){ $isFlag = "<img src=../content/static/important32.png>"; };
+if($naw[5] =~ "update"){ $isFlag = "<img src=../content/static/new32.png>"; };
+if($naw[5] =~ "test"){ $isFlag = "<img src=../content/static/test.png>"; };
+if(!$isFlag){ $isFlag = "<img src=../content/static/msg.png>"; };
+
+if($level =~ "1"){
+ print "<tr><td><a href=./a/004.cgi?request=02w&doMe=$naw[0] onclick=\"return confirm('Weet u het zeker? Dit kan niet ongedaan gemaakt worden!\');\"><img src=./content/static/del.png style=border-style:none; align=right></a></td><td>$naw[1], $naw[2]</td><td>$naw[3]</td><td>$naw[4]</td><td>$isFlag</td></tr>\n";
+} else {
+ print "<tr><td></td><td>$naw[1], $naw[2]</td><td>$naw[3]</td><td>$naw[4]</td><td>$isFlag</td></tr>\n";
+};
+$isFlag = "";
+};
+
+print "</table>";
+

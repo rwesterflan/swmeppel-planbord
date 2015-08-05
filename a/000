@@ -1,0 +1,10 @@
+print <<DURR;
+<center>
+&nbsp;
+<p>
+<font size=9><b><img src=./content/static/flopdesk.png>lopdesk</font></b>
+<h2>word aangeboden door</h2>
+<font size=9><b><img src=./content/static/comradia.png>omradia Automatisering</font></b>
+</center>
+DURR
+

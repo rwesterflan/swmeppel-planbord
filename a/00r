@@ -1,0 +1,39 @@
+$icanhasbutton="yes";
+
+$ConT = $dbh->prepare('SELECT * FROM users');
+$CONTENT = $dbh->selectall_hashref('SELECT * FROM users', 'id');
+$ConT->execute();
+
+print "<h2>Standaardwachtwoord wijzigen.</h2>";
+
+if($out{status} =~ /ok/){
+print "<div class=info>Bedankt! U kunt nu verder in het menu links.</div>";
+} else {
+if($out{status} =~ /failed/){
+print "<div class=warning>De wachtwoorden kwamen niet overeen. Probeer het nog eens.</div>";
+};
+
+print <<DURR;
+Aan de wachtwoorden hier worden geen eisen gesteld.<br>
+Als je 'hoi' wilt gebruiken dan mag dat - maar hou er rekening mee dat het hier om persoonsgegevens gaat.<br>
+Een wachtwoord mag alle soorten tekens bevatten. Van a tot z (en A-Z), nummers, speciale tekens (#, !, etc).<br>
+Hoewel de meeste Unicode-tekens worden ondersteund, zijn er enkele tekens die niet toegestaan zijn.<br>
+Het is niet zeker welke, maar deze tekens mogen in ieder geval niet: [, ], {, }, \@, \$. <p>
+In elk geval bedankt voor het veilig gebruiken van Jimmy!<p>
+<form action=a/004.cgi method=post><input type=hidden name=request value=00r>
+
+<table>
+<tr><td>Gebruikersnaam:</td><td><input type=text name=username value=$CONTENT->{$userid}->{altusername} disabled></td></tr>
+<tr><td>Nieuw wachtwoord:</td><td><input type=password name=newPass1></td></tr>
+<tr><td>Nieuw wachtwoord (controle):</td><td><input type=password name=newPass2></td></tr>
+</table>
+
+<input type=hidden name=altusername value=$CONTENT->{$userid}->{altusername}>
+<input type=hidden name=id value=$userid>
+<p>
+Na het wijzigen kan je gewoon doorwerken in het systeem.<br>
+Pas zodra je een volgende keer wilt aanmelden heb je het nieuwe wachtwoord nodig.
+
+DURR
+
+};

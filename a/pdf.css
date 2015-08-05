@@ -1,0 +1,23 @@
+.sheet {
+height: 960px;
+width: 645px;
+overflow: hidden;
+}
+
+.declare{
+border-bottom: 1px solid black;
+height: 100%;
+width: 645px;
+background-color: #eeeeee;
+font-family: Arial;
+padding: 5px;
+}
+
+TD {
+font-size : 16px;
+}
+
+a:link {color: #000000}
+a:visited {color: #000000}
+a:hover {color: #FF0000}
+

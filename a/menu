@@ -1,0 +1,42 @@
+if($usrname =~ /enquete/){ print "<b>Oeps!</b><p><a href=?fn=00b&menu=off><font face=verdana>Als u dit ziet bent u waar u niet moet zijn..<br>Klik hier om terug te gaan naar waar u wèl moet zijn.</a>"; exit('Invalid referrer'); };
+
+if($level =~ /0/){ $u="0"; };
+if($level =~ /2/){ $u="02"; };
+if($level =~ /1/){ $u="1"; };
+
+
+$l = "a";
+#$u = "1";
+
+print "<font face=arial color=white size=2>";
+print "<b>Menu <a href=?>-</a></b><br><hr>";
+if($u=~/0|1/){ print "<i><b>Mijn gegevens</b></i>"; };
+if($u=~/0|1/){ print "<li><a href=?fn=00f&doMe=$userid>Mijn rooster</a></li>" };
+if($u=~/0|1/){ print "<li><a href=?fn=00g&doMe=$userid>Mijn kennis</a></li>" };
+if($u=~/0|1/){ print "<li><a href=?fn=01n&doMe=$userid>Mijn profiel</a></li>" };
+if($u=~/0|1/){ print "<br>"; };
+
+if($u=~/0|1/){ print "<i><b>Planbord</b></i>"; };
+if($u=~/0|1/){ print "<li><a href=?fn=00w>Berichten</a></li>" };
+if($u=~/0|1/){ print "<li><a href=?fn=00m>Cursusrooster</a></li>" };
+if($u=~/0|1/){ print "<br>"; };
+
+if($u=~/0|1|2/){ print "<i><b>Administratie</b></i>" };
+if($u=~/0|1|2/){ print "<li><a href=?fn=00j>Folderdistributie</a></li>" };
+if($u=~/0|1/){ print "<li><a href=?fn=00n>Ledenlijst</a></li>" };
+if($u=~/0|1|2/){ print "<br>"; };
+
+if($u=~/1/){ print "<i><b>Overzichten</b></i>" };
+if($u=~/1/){ print "<li><a href=?fn=00k>Ingevulde roosters</a></li>" };
+if($u=~/1/){ print "<li><a href=?fn=00h>Beschikbaarheid</a></li>" };
+if($u=~/1/){ print "<li><a href=?fn=00i>Competentielijst</a></li>" };
+if($u=~/1/){ print "<br>"; };
+
+if($u=~/1/){ print "<i><b>Enquetes</b></i>" };
+if($u=~/1/){ print "<li><a href=?fn=00a>Overzicht</a></li>" };
+#if($u=~/1/){ print "<li><a href=?fn=00b>(Testinvoer)</a></li>" };
+if($u=~/1/){ print "<br>"; };
+
+print "</font>";
+
+1;

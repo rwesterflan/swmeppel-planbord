@@ -1,0 +1,72 @@
+$icanhasbutton = "yes";
+
+$SCHE = $dbh->selectall_hashref("select coursesched.day, coursesched.courseid, courses.id, courses.shortName, courses.internalid, courses.icon from coursesched left join courses on coursesched.courseid = courses.id", "day");
+
+$Pag = $dbh->prepare("SELECT id, internalid, shortName, fullName, level, prereqs, duration, icon FROM courses order by shortname asc");
+$Pag->execute();
+
+print <<DURR;
+<style>
+tr:nth-child(odd) {background: #ddd}
+tr:nth-child(even) {background: #eee}
+</style>
+
+<h2>Cursusrooster **EXPERIMENTEEL*</h2>
+<a href=?fn=00m>Klik hier om te bekijken</a>
+<form action=a/004.cgi method=post><input type=hidden name=request value=00c>
+<table class=sel>
+<tr><td>     </td><th width=200px>Maandag</th><th width=200px>Dinsdag</th><th width=200px>Woensdag</th><th width=200px>Donderdag</th><th width=200px>Vrijdag</th></tr>
+DURR
+
+print "<tr><td>08:30</td><td>"; $cSel="d11a"; &courseSelector; print "</td><td>"; $cSel="d21a"; &courseSelector; print "</td><td>"; $cSel="d31a"; &courseSelector; print "</td><td>"; $cSel="d41a"; &courseSelector; print "</td><td>"; $cSel="d51a"; &courseSelector; print "</td></tr>";
+print "<tr><td>     </td><td>"; $cSel="d11b"; &courseSelector; print "</td><td>"; $cSel="d21b"; &courseSelector; print "</td><td>"; $cSel="d31b"; &courseSelector; print "</td><td>"; $cSel="d41b"; &courseSelector; print "</td><td>"; $cSel="d51b"; &courseSelector; print "</td></tr>";
+print "<tr><td>10:45</td><td>"; $cSel="d12a"; &courseSelector; print "</td><td>"; $cSel="d22a"; &courseSelector; print "</td><td>"; $cSel="d32a"; &courseSelector; print "</td><td>"; $cSel="d42a"; &courseSelector; print "</td><td>"; $cSel="d52a"; &courseSelector; print "</td></tr>";
+print "<tr><td>     </td><td>"; $cSel="d12b"; &courseSelector; print "</td><td>"; $cSel="d22b"; &courseSelector; print "</td><td>"; $cSel="d32b"; &courseSelector; print "</td><td>"; $cSel="d42b"; &courseSelector; print "</td><td>"; $cSel="d52b"; &courseSelector; print "</td></tr>";
+print "<tr><td>13:00</td><td>"; $cSel="d13a"; &courseSelector; print "</td><td>"; $cSel="d23a"; &courseSelector; print "</td><td>"; $cSel="d33a"; &courseSelector; print "</td><td>"; $cSel="d43a"; &courseSelector; print "</td><td>"; $cSel="d53a"; &courseSelector; print "</td></tr>";
+print "<tr><td>     </td><td>"; $cSel="d13b"; &courseSelector; print "</td><td>"; $cSel="d23b"; &courseSelector; print "</td><td>"; $cSel="d33b"; &courseSelector; print "</td><td>"; $cSel="d43b"; &courseSelector; print "</td><td>"; $cSel="d53b"; &courseSelector; print "</td></tr>";
+print "<tr><td>15:15</td><td>"; $cSel="d14a"; &courseSelector; print "</td><td>"; $cSel="d24a"; &courseSelector; print "</td><td>"; $cSel="d34a"; &courseSelector; print "</td><td>"; $cSel="d44a"; &courseSelector; print "</td><td>"; $cSel="d54a"; &courseSelector; print "</td></tr>";
+print "<tr><td>     </td><td>"; $cSel="d14b"; &courseSelector; print "</td><td>"; $cSel="d24b"; &courseSelector; print "</td><td>"; $cSel="d34b"; &courseSelector; print "</td><td>"; $cSel="d44b"; &courseSelector; print "</td><td>"; $cSel="d54b"; &courseSelector; print "</td></tr>";
+print "<tr><td>19:00</td><td>"; $cSel="d15a"; &courseSelector; print "</td><td>"; $cSel="d25a"; &courseSelector; print "</td><td>"; $cSel="d35a"; &courseSelector; print "</td><td>"; $cSel="d45a"; &courseSelector; print "</td><td>"; $cSel="d55a"; &courseSelector; print "</td></tr>";
+print "<tr><td>     </td><td>"; $cSel="d15b"; &courseSelector; print "</td><td>"; $cSel="d25b"; &courseSelector; print "</td><td>"; $cSel="d35b"; &courseSelector; print "</td><td>"; $cSel="d45b"; &courseSelector; print "</td><td>"; $cSel="d55b"; &courseSelector; print "</td></tr>";
+
+print "</table>\n";
+print "<p>\n";
+
+print <<DURR;
+<h2>Cursussen</h2>
+Hier kunnen alle cursussen gedefinieerd worden.<br>
+Dit is belangrijk: zowel evalutieformulieren als roosters hangen hier vanaf.
+<p>
+<b>Het is belangrijk om cursussen achteraf niet te veel te wijzigen, of te verwijderen.</b><br>
+Wanneer je een cursus verwijdert uit de lijst kunnen enquetes ongeldig of onleesbaar worden.<br>
+
+<p>
+<b>Nieuwe cursussen aanmaken door deze direct in de database te schrijven.</b> (bug 42)
+<p>
+<table cellpadding=0 class=sel>
+<tr><th>ID</th><th>sw-ID</th><th></th><th width=500px>Volledige naam</th><th>Niveau</th><th>Duur</th></tr>
+DURR
+
+$Pag->execute();
+while (@naw = $Pag->fetchrow()) {
+ print "<tr><td width=50px>$naw[0]</td><td width=50px>$naw[1]</td><td><img src=\"./content/static/ico/$naw[7].png\"></td><td>$naw[3]</td><td>$naw[4]</td><td>$naw[6]</td></tr>\n";
+};
+
+print "</table>";
+
+sub courseSelector{
+$Pag->execute();
+ print "<select name=$cSel>\n";
+ print "<option name=0 selected></option>\n";
+ while (@naw = $Pag->fetchrow()) {
+  $Name = substr $naw[2], 0, 15;
+  if($naw[0] == $SCHE->{$cSel}->{courseid}) { $Mark = "selected"; };
+  print "<option value=\"$naw[0]\" $Mark>$Name</option>\n";
+  $Mark = "";
+ };
+ print "</select>\n";
+
+};
+
+1;
+

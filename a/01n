@@ -1,0 +1,66 @@
+$icanhasbutton="yes";
+
+$ConT = $dbh->prepare('SELECT * FROM users');
+$CONTENT = $dbh->selectall_hashref('SELECT * FROM users', 'id');
+$ConT->execute();
+
+if ($CONTENT->{$out{doMe}}->{elevation} =~ /1/) { $e0a = "checked"; };
+if ($CONTENT->{$out{doMe}}->{elevation} =~ /0/) { $e0b = "checked"; };
+if ($CONTENT->{$out{doMe}}->{swtask} =~ /doc/) { $t0a = "selected"; };
+if ($CONTENT->{$out{doMe}}->{swtask} =~ /ass/) { $t0b = "selected"; };
+if ($CONTENT->{$out{doMe}}->{swtask} =~ /docass/) { $t0c = "selected"; };
+if ($CONTENT->{$out{doMe}}->{swtask} =~ /other/) { $t0d = "selected"; };
+if ($CONTENT->{$out{doMe}}->{title} =~ /Dhr/i) { $g0a = "selected"; };
+if ($CONTENT->{$out{doMe}}->{title} =~ /Mw/i) { $g0b = "selected"; };
+
+
+if($userid != $out{doMe}){ print "<div class=warning><font color=#c00><b>Tip: je kunt hier niks bewerken omdat dit het profiel van iemand anders is.</b></font><br>";
+$lock = "disabled"; 
+$icanhasbutton = "no";
+if($level =~ /1/){ print "<font color=green>Maar omdat je beheerder bent staan we dat toe.</font>"; $icanhasbutton = "yes"; $lock=""; }; 
+print "</div>"; };
+
+print <<derp;
+<style>
+tr:nth-child(odd) {background: #CCC}
+tr:nth-child(even) {background: #DDD}
+table.sel tr:hover{ background-color:White;cursor:pointer; }
+</style>
+
+<font face=verdana><form action=a/004.cgi name=pw action=get><input type=hidden name=request value=01n><input type=hidden name=id value=$out{doMe}><input type=hidden name=doMe value=$out{doMe}>
+
+<table>
+<tr><td>Titel (dhr/mevr):</td><td><select $lock name=title><option value=dhr $g0a>dhr.</option><option value=mw $g0b>mw.</option></select></td></tr>
+<tr><td>Initialen:       </td><td><input $lock type=text name=initials style="width:535px;" value="$CONTENT->{$out{doMe}}->{initials}"></td></tr>
+<tr><td>Voornaam:        </td><td><input $lock type=text name=fname    style="width:535px;" value="$CONTENT->{$out{doMe}}->{fname}"></td></tr>
+<tr><td>Tussenvoegsel:   </td><td><input $lock type=text name=mname    style="width:535px;" value="$CONTENT->{$out{doMe}}->{mname}"></td></tr>
+<tr><td>Achternaam:      </td><td><input $lock type=text name=lname    style="width:535px;" value="$CONTENT->{$out{doMe}}->{lname}"></td></tr>
+<tr><td>Straat + huisnr: </td><td><input $lock type=text name=street   style="width:535px;" value="$CONTENT->{$out{doMe}}->{street}"></td></tr>
+<tr><td>Postcode:        </td><td><input $lock type=text name=postal   style="width:535px;" value="$CONTENT->{$out{doMe}}->{postal}"></td></tr>
+<tr><td>Plaats:          </td><td><input $lock type=text name=city     style="width:535px;" value="$CONTENT->{$out{doMe}}->{city}"></td></tr>
+<tr><td>Telefoon thuis:  </td><td><input $lock type=text name=phonehome style="width:535px;" value="$CONTENT->{$out{doMe}}->{phonehome}" maxlength="11"></td></tr>
+<tr><td>Telefoon mobiel: </td><td><input $lock type=text name=phonemobile style="width:535px;" value="$CONTENT->{$out{doMe}}->{phonemobile}" maxlength="11"></td></tr>
+<tr><td>E-mailadres:     </td><td><input $lock type=text name=email    style="width:535px;" value="$CONTENT->{$out{doMe}}->{email}"></td></tr>
+<tr><td>Taakbeschrijving:</td><td><input $lock type=text name=task     style="width:535px;" value="$CONTENT->{$out{doMe}}->{task}"></td></tr>
+<tr><td>Geboortedatum:   </td><td><input $lock type=text name=birthday style="width:535px;" value="$CONTENT->{$out{doMe}}->{birthday}"></td></tr>
+<tr><td>Type telefoon/tablet</td><td><input $lock type=text name=hardware style="width:535px;" value="$CONTENT->{$out{doMe}}->{hardware}"></td></tr>
+<tr><td>Lid sinds:       </td><td><input $lock type=text name=membersince style="width:535px;" value="$CONTENT->{$out{doMe}}->{membersince}"></td></tr>
+<tr><td>Lesgevend als:   </td><td><select $lock name=swtask style="width:535px;"><option value=doc $t0a>Docent</option><option value=ass $t0b>Assistent</option><option value=docass $t0c>Docent + Assistent</option><option value=other $t0d>Anders / onbekend</option></select></td></tr>
+<tr><td>Gebruikersnaam:  </td><td><input $lock type=text name=altusername style="width:535px;" value="$CONTENT->{$out{doMe}}->{altusername}" readonly></td></tr>
+<tr><td>Wachtwoord:      </td><td><input $lock type=password name=password disabled style="width:535px;" value="$CONTENT->{$out{doMe}}->{password}"> <input type=checkbox $lock name=resetPW id=rpw onclick=\"javascript:disableIt(document.pw.password)\"><label for=rpw>Reset wachtwoord</label></td></tr>
+</table>
+derp
+
+if($level =~ /1/){
+print "<hr>Alleen beheerders zien het onderstaande, gebruik deze wijsheid met wijsheid.<p>";
+print "<input type=radio $lock name=elevation value=1 $e0a id=l1><label for=l1>Gebruiker is beheerder</label> | <input type=radio $lock name=elevation value=0 $e0b id=l2><label for=l2>Gebruiker heeft geen speciale rechten</label><p>";
+print "<input type=checkbox name=updateBrowser id=ub><label for=ub>Update browsergegevens</label><p>";
+print "<font size=2>IP adres: $CONTENT->{$out{doMe}}->{ip}<br>Browser: $CONTENT->{$out{doMe}}->{browser}";
+print "<input type=hidden name=oldbrowser value=\"$CONTENT->{$out{doMe}}->{browser}\"> <input type=hidden name=oldip value=$CONTENT->{$out{doMe}}->{ip}>";
+} else {
+print "<input type=hidden name=elevation value=$level>";
+};
+
+
+1;
+

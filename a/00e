@@ -1,0 +1,91 @@
+$icanhasbutton="yes";
+
+if(!$out{doMe}) {$out{doMe} = $userid};
+if($userid != $out{doMe}){ 
+ print "<div class=warning><font color=#c00><b>Je kunt hier niks bewerken omdat dit het profiel van iemand anders is.</b></font>";
+ $lock = "disabled"; 
+ $icanhasbutton = "no";
+  if($level =~ /1/){ 
+   print "<br><font color=green>Maar omdat je beheerder bent staan we dat toe.</font>"; 
+   $icanhasbutton = "yes"; 
+   $lock=""; 
+  }; 
+ print "</div>";
+};
+
+if(!$out{doMe}){ $userid = $userid; } else { $userid = $out{doMe}; $useroverride="1"; };
+
+$ConT = $dbh->prepare("SELECT id, initials, lname FROM users where id='$userid'");
+$CONTENT = $dbh->selectall_hashref("SELECT id, initials, lname FROM users where id='$userid'", "id");
+$ConT->execute();
+
+$Sched = $dbh->prepare("SELECT * FROM schedule where id='$userid'");
+$SCHED = $dbh->selectall_hashref("SELECT * FROM schedule where id='$userid'", "id");
+$Sched->execute();
+
+$SCHED->{$userid}->{notes} =~ s/\'/\\\'/g; 
+$SCHED->{$userid}->{notes} =~ s/\"/\\\"/g; 
+$SCHED->{$userid}->{notes} =~ s/<br>/\\n/g; 
+$SCHED->{$userid}->{notes} =~ s/\</\&lt;/g; 
+
+
+
+$name = $CONTENT->{$userid}->{initials}." ".$CONTENT->{$userid}->{lname};
+
+################ Select box selector (please kill me it hurts to live)
+if($SCHED->{$userid}->{d11} =~ /1/){ $d111 = "selected" } elsif($SCHED->{$userid}->{d11} =~ /2/){ $d112 = "selected" } elsif($SCHED->{$userid}->{d11} =~ /3/){ $d113 = "selected" };
+if($SCHED->{$userid}->{d12} =~ /1/){ $d121 = "selected" } elsif($SCHED->{$userid}->{d12} =~ /2/){ $d122 = "selected" } elsif($SCHED->{$userid}->{d12} =~ /3/){ $d123 = "selected" };
+if($SCHED->{$userid}->{d13} =~ /1/){ $d131 = "selected" } elsif($SCHED->{$userid}->{d13} =~ /2/){ $d132 = "selected" } elsif($SCHED->{$userid}->{d13} =~ /3/){ $d133 = "selected" };
+if($SCHED->{$userid}->{d14} =~ /1/){ $d141 = "selected" } elsif($SCHED->{$userid}->{d14} =~ /2/){ $d142 = "selected" } elsif($SCHED->{$userid}->{d14} =~ /3/){ $d143 = "selected" };
+if($SCHED->{$userid}->{d15} =~ /1/){ $d151 = "selected" } elsif($SCHED->{$userid}->{d15} =~ /2/){ $d152 = "selected" } elsif($SCHED->{$userid}->{d15} =~ /3/){ $d153 = "selected" };
+if($SCHED->{$userid}->{d21} =~ /1/){ $d211 = "selected" } elsif($SCHED->{$userid}->{d21} =~ /2/){ $d212 = "selected" } elsif($SCHED->{$userid}->{d21} =~ /3/){ $d213 = "selected" };
+if($SCHED->{$userid}->{d22} =~ /1/){ $d221 = "selected" } elsif($SCHED->{$userid}->{d22} =~ /2/){ $d222 = "selected" } elsif($SCHED->{$userid}->{d22} =~ /3/){ $d223 = "selected" };
+if($SCHED->{$userid}->{d23} =~ /1/){ $d231 = "selected" } elsif($SCHED->{$userid}->{d23} =~ /2/){ $d232 = "selected" } elsif($SCHED->{$userid}->{d23} =~ /3/){ $d233 = "selected" };
+if($SCHED->{$userid}->{d24} =~ /1/){ $d241 = "selected" } elsif($SCHED->{$userid}->{d24} =~ /2/){ $d242 = "selected" } elsif($SCHED->{$userid}->{d24} =~ /3/){ $d243 = "selected" };
+if($SCHED->{$userid}->{d25} =~ /1/){ $d251 = "selected" } elsif($SCHED->{$userid}->{d25} =~ /2/){ $d252 = "selected" } elsif($SCHED->{$userid}->{d25} =~ /3/){ $d253 = "selected" };
+if($SCHED->{$userid}->{d31} =~ /1/){ $d311 = "selected" } elsif($SCHED->{$userid}->{d31} =~ /2/){ $d312 = "selected" } elsif($SCHED->{$userid}->{d31} =~ /3/){ $d313 = "selected" };
+if($SCHED->{$userid}->{d32} =~ /1/){ $d321 = "selected" } elsif($SCHED->{$userid}->{d32} =~ /2/){ $d322 = "selected" } elsif($SCHED->{$userid}->{d32} =~ /3/){ $d323 = "selected" };
+if($SCHED->{$userid}->{d33} =~ /1/){ $d331 = "selected" } elsif($SCHED->{$userid}->{d33} =~ /2/){ $d332 = "selected" } elsif($SCHED->{$userid}->{d33} =~ /3/){ $d333 = "selected" };
+if($SCHED->{$userid}->{d34} =~ /1/){ $d341 = "selected" } elsif($SCHED->{$userid}->{d34} =~ /2/){ $d342 = "selected" } elsif($SCHED->{$userid}->{d34} =~ /3/){ $d343 = "selected" };
+if($SCHED->{$userid}->{d35} =~ /1/){ $d351 = "selected" } elsif($SCHED->{$userid}->{d35} =~ /2/){ $d352 = "selected" } elsif($SCHED->{$userid}->{d35} =~ /3/){ $d353 = "selected" };
+if($SCHED->{$userid}->{d41} =~ /1/){ $d411 = "selected" } elsif($SCHED->{$userid}->{d41} =~ /2/){ $d412 = "selected" } elsif($SCHED->{$userid}->{d41} =~ /3/){ $d413 = "selected" };
+if($SCHED->{$userid}->{d42} =~ /1/){ $d421 = "selected" } elsif($SCHED->{$userid}->{d42} =~ /2/){ $d422 = "selected" } elsif($SCHED->{$userid}->{d42} =~ /3/){ $d423 = "selected" };
+if($SCHED->{$userid}->{d43} =~ /1/){ $d431 = "selected" } elsif($SCHED->{$userid}->{d43} =~ /2/){ $d432 = "selected" } elsif($SCHED->{$userid}->{d43} =~ /3/){ $d433 = "selected" };
+if($SCHED->{$userid}->{d44} =~ /1/){ $d441 = "selected" } elsif($SCHED->{$userid}->{d44} =~ /2/){ $d442 = "selected" } elsif($SCHED->{$userid}->{d44} =~ /3/){ $d443 = "selected" };
+if($SCHED->{$userid}->{d45} =~ /1/){ $d451 = "selected" } elsif($SCHED->{$userid}->{d45} =~ /2/){ $d452 = "selected" } elsif($SCHED->{$userid}->{d45} =~ /3/){ $d453 = "selected" };
+if($SCHED->{$userid}->{d51} =~ /1/){ $d511 = "selected" } elsif($SCHED->{$userid}->{d51} =~ /2/){ $d512 = "selected" } elsif($SCHED->{$userid}->{d51} =~ /3/){ $d513 = "selected" };
+if($SCHED->{$userid}->{d52} =~ /1/){ $d521 = "selected" } elsif($SCHED->{$userid}->{d52} =~ /2/){ $d522 = "selected" } elsif($SCHED->{$userid}->{d52} =~ /3/){ $d523 = "selected" };
+if($SCHED->{$userid}->{d53} =~ /1/){ $d531 = "selected" } elsif($SCHED->{$userid}->{d53} =~ /2/){ $d532 = "selected" } elsif($SCHED->{$userid}->{d53} =~ /3/){ $d533 = "selected" };
+if($SCHED->{$userid}->{d54} =~ /1/){ $d541 = "selected" } elsif($SCHED->{$userid}->{d54} =~ /2/){ $d542 = "selected" } elsif($SCHED->{$userid}->{d54} =~ /3/){ $d543 = "selected" };
+if($SCHED->{$userid}->{d55} =~ /1/){ $d551 = "selected" } elsif($SCHED->{$userid}->{d55} =~ /2/){ $d552 = "selected" } elsif($SCHED->{$userid}->{d55} =~ /3/){ $d553 = "selected" };
+
+
+if ($SCHED->{$userid}->{dateCreated} =~ /^$/) { 
+if($uid != $out{doMe}){ print "<font color=#c00><b>$name heeft nog geen rooster gemaakt.<br>Het is echter niet toegestaan om er een te maken vanuit een andere gebruiker.<p><i><font size=2>schedule.impersonate.disallowed=1</font></i></b></font><br>"; } else {
+print "<h2>Welkom $name</h2>Dit is zo te zien de eerste keer dat u hier komt.<br>Klik op de knop hieronder om een nieuw rooster te maken.<p>Standaard worden alle mogelijkheden op 'Nee' gezet, maar dat merkt u vanzelf. <p>Als u zeker bent dat u het rooster al eens ingevuld heeft,<br>klik dan vooral niet op de knop en neem contact op met iemand. <p>Nog geen zin om het rooster in te vullen? Klik dan vooral niet op de knop aangezien dit vervelende statistieken oplevert.<p><form action=a/004.cgi method=post><input type=hidden name=request value=05e><input type=hidden name=datum value=$datum><input type=hidden name=tijd value=$tijd><input type=hidden name=id value=$userid><input type=submit value=\"De knop (om te beginnen).\"></form>" };
+} else {
+print <<DERP;
+<h2>Roosterbord voor $name</h2>
+<a href=?fn=00f&readonly=1&doMe=$out{doMe}>Klik hier voor een overzicht met kleurtjes</a>
+<form action=a/004.cgi method=post>
+<input type=hidden name=request value=01e>
+<input type=hidden name=datum value=$datum>
+<input type=hidden name=tijd value=$tijd>
+<input type=hidden name=id value=$userid>
+<table>
+<tr><td></td> <th>Ma</th><th>Di</th><th>Wo</th><th>Do</th><th>Vr</th></tr>
+<tr><td>08:30</td><td><select $lock name=d11><option value=1 $d111>Ja</option><option value=2 $d112>Misschien</option><option value=3 $d113>Nee</option></select></td><td><select $lock name=d21><option value=1 $d211>Ja</option><option value=2 $d212>Misschien</option><option value=3 $d213>Nee</option></select></td><td><select $lock name=d31><option value=1 $d311>Ja</option><option value=2 $d312>Misschien</option><option value=3 $d313>Nee</option></select></td><td><select $lock name=d41><option value=1 $d411>Ja</option><option value=2 $d412>Misschien</option><option value=3 $d413>Nee</option></select></td><td><select $lock name=d51><option value=1 $d511>Ja</option><option value=2 $d512>Misschien</option><option value=3 $d513>Nee</option></select></td></tr>
+<tr><td>10:45</td><td><select $lock name=d12><option value=1 $d121>Ja</option><option value=2 $d122>Misschien</option><option value=3 $d123>Nee</option></select></td><td><select $lock name=d22><option value=1 $d221>Ja</option><option value=2 $d222>Misschien</option><option value=3 $d223>Nee</option></select></td><td><select $lock name=d32><option value=1 $d321>Ja</option><option value=2 $d322>Misschien</option><option value=3 $d323>Nee</option></select></td><td><select $lock name=d42><option value=1 $d421>Ja</option><option value=2 $d422>Misschien</option><option value=3 $d423>Nee</option></select></td><td><select $lock name=d52><option value=1 $d521>Ja</option><option value=2 $d522>Misschien</option><option value=3 $d523>Nee</option></select></td></tr>
+<tr><td>13:00</td><td><select $lock name=d13><option value=1 $d131>Ja</option><option value=2 $d132>Misschien</option><option value=3 $d133>Nee</option></select></td><td><select $lock name=d23><option value=1 $d231>Ja</option><option value=2 $d232>Misschien</option><option value=3 $d233>Nee</option></select></td><td><select $lock name=d33><option value=1 $d331>Ja</option><option value=2 $d332>Misschien</option><option value=3 $d333>Nee</option></select></td><td><select $lock name=d43><option value=1 $d431>Ja</option><option value=2 $d432>Misschien</option><option value=3 $d433>Nee</option></select></td><td><select $lock name=d53><option value=1 $d531>Ja</option><option value=2 $d532>Misschien</option><option value=3 $d533>Nee</option></select></td></tr>
+<tr><td>15:15</td><td><select $lock name=d14><option value=1 $d141>Ja</option><option value=2 $d142>Misschien</option><option value=3 $d143>Nee</option></select></td><td><select $lock name=d24><option value=1 $d241>Ja</option><option value=2 $d242>Misschien</option><option value=3 $d243>Nee</option></select></td><td><select $lock name=d34><option value=1 $d341>Ja</option><option value=2 $d342>Misschien</option><option value=3 $d343>Nee</option></select></td><td><select $lock name=d44><option value=1 $d441>Ja</option><option value=2 $d442>Misschien</option><option value=3 $d443>Nee</option></select></td><td><select $lock name=d54><option value=1 $d541>Ja</option><option value=2 $d542>Misschien</option><option value=3 $d543>Nee</option></select></td></tr>
+<tr><td>19:00</td><td><select $lock name=d15><option value=1 $d151>Ja</option><option value=2 $d152>Misschien</option><option value=3 $d153>Nee</option></select></td><td><select $lock name=d25><option value=1 $d251>Ja</option><option value=2 $d252>Misschien</option><option value=3 $d253>Nee</option></select></td><td><select $lock name=d35><option value=1 $d351>Ja</option><option value=2 $d352>Misschien</option><option value=3 $d353>Nee</option></select></td><td><select $lock name=d45><option value=1 $d451>Ja</option><option value=2 $d452>Misschien</option><option value=3 $d453>Nee</option></select></td><td><select $lock name=d55><option value=1 $d551>Ja</option><option value=2 $d552>Misschien</option><option value=3 $d553>Nee</option></select></td></tr>
+</table>
+<p>
+Notities:<br>
+<textarea cols=30 $lock rows=6 name=notes style="width:535px;">$SCHED->{$userid}->{notes}</textarea>
+DERP
+
+};
+
+1;
+

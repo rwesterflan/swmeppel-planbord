@@ -1,0 +1,46 @@
+$ConT = $dbh->prepare("SELECT id, initials, lname FROM users where id='$userid'");
+$CONTENT = $dbh->selectall_hashref("SELECT id, initials, lname FROM users where id='$userid'", "id");
+$ConT->execute();
+
+$name = $CONTENT->{$userid}->{initials}." ".$CONTENT->{$userid}->{lname};
+if($level =~ /1/){ $ele = "elevated"; } else { $ele = "unelevated"; };
+print <<derp;
+<h2>Servergegevens!</h2>
+<font size=1>Gon' be an awful lot.</font><p>
+Goed. Verhaaltje.<br>
+Je bent <b>$name</b>. Je databasecode is <b>$userid</b>.<br>
+Momenteel ben je ingelogd (logisch, anders zag je dit niet).<br>
+Dit ben je door middel van een sessie, wat opgeslagen word in de enige cookie die we maken.<br>
+Je sessie-ID is <b>$CGISESSION</b>, maar deze verloopt zodra je je afmeld of de sessie laat verlopen.<br>
+Momenteel heb je <b>$ele</b> gebruikersrechten (niveau <b>$level</b>).
+<p>
+De server is een <b>VMWare server</b>. Het OS is <b>Debian GNU/Linux 7.0 (wheezy)</b><br>
+Processor is een <b>AMD Athlon(tm) II Neo N36L Dual-Core Processor</b> en er zit <b>8 gb</b> ram in.
+<p>
+Beheersysteem is Flopdesk, versie 1.2 revisie 7, aangepast voor SWMeppel Services.
+<p>
+<hr>
+<p>
+<h3>CGI/Apache gegevens</h3>
+$DOCUMENT_ROOT<br>
+HTTP_COOKIE = <b>$ENV{'HTTP_COOKIE'}</b><br>
+HTTP_HOST = <b>$ENV{'HTTP_HOST'}</b><br>
+HTTP_REFERER = <b>$ENV{'HTTP_REFERER'}</b><br>
+HTTP_USER_AGENT = <b>$ENV{'HTTP_USER_AGENT'}</b><br>
+HTTPS = <b>$ENV{'HTTPS'}</b><br>
+PATH = <b>$ENV{'PATH'}</b><br>
+QUERY_STRING = <b>$ENV{'QUERY_STRING'}</b><br>
+REMOTE_ADDR = <b>$ENV{'REMOTE_ADDR'}</b><br>
+REMOTE_HOST = <b>$ENV{'REMOTE_HOST'}</b><br>
+REMOTE_PORT = <b>$ENV{'REMOTE_PORT'}</b><br>
+REMOTE_USER = <b>$ENV{'REMOTE_USER'}</b><br>
+REQUEST_METHOD = <b>$ENV{'REQUEST_METHOD'}</b><br>
+REQUEST_URI = <b>$ENV{'REQUEST_URI'}</b><br>
+SCRIPT_FILENAME = <b>$ENV{'SCRIPT_FILENAME'}</b><br>
+SCRIPT_NAME = <b>$ENV{'SCRIPT_NAME'}</b><br>
+SERVER_ADMIN = <b>$ENV{'SERVER_ADMIN'}</b><br>
+SERVER_NAME = <b>$ENV{'SERVER_NAME'}</b><br>
+SERVER_PORT = <b>$ENV{'SERVER_PORT'}</b><br>
+SERVER_SOFTWARE = <b>$ENV{'SERVER_SOFTWARE'}</b><br>
+derp
+
