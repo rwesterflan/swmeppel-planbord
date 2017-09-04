@@ -188,6 +188,15 @@ $dbh->do("UPDATE schedule SET d11='$out{d11}', d12='$out{d12}', d13='$out{d13}',
 $targetURL="00f";
 };
 
+########################################################################### 01m
+if($out{request} =~ /^01m$/){
+if($out{disable} =~ /on/){ $status="1"; } else { $status = "0"; };
+
+$dbh->do("UPDATE courses SET shortNAme='$out{shortName}', fullNAme='$out{fullName}', icon='$out{icon}', disabled='$status' WHERE id='$out{id}';") or die(mysql_error()); ;
+$targetURL="00m";
+};
+
+
 ########################################################################### 00y
 if($out{request} =~ /^00y$/){
 $dbh->do("UPDATE config SET value='$out{companyname}' WHERE naam='companyname';") or die(mysql_error()); ;
