@@ -1,4 +1,3 @@
-This is the original code for the SWMeppel Planbord, running on http://planbord.swmeppel.nl
+This is the software running for the Seniorweb Meppel Scheduling System, at https://planbord.swmeppel.nl
 
-Since this will be rewritten, it's not going to get any updates. Probably.
-
+Originally written in 2013, it's time to improve code and introduce new features.
