@@ -9,7 +9,7 @@ $l = "a";
 #$u = "1";
 
 print "<font face=arial color=white size=2>";
-print "<b>Menu <a href=?>-</a></b><br><hr>";
+print "<b>Menu</b><br><hr>";
 if($u=~/0|1/){ print "<i><b>Mijn gegevens</b></i>"; };
 if($u=~/0|1/){ print "<li><a href=?fn=00f&doMe=$userid>Mijn rooster</a></li>" };
 if($u=~/0|1/){ print "<li><a href=?fn=00g&doMe=$userid>Mijn kennis</a></li>" };
