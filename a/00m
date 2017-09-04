@@ -6,6 +6,8 @@ tr:nth-child(odd) {background: #ddd}
 tr:nth-child(even) {background: #eee}
 </style>
 <h2>Cursusinformatie</h2>
+Klik op een ID (eerste kolom) om de details van een cursus te bewerken.<br>
+Klik op een titel (derde kolom) om de enqueteresultaten te bekijken.
 DURR
 
 $Pag = $dbh->prepare("SELECT * FROM courses order by fullName asc");
