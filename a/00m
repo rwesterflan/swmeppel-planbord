@@ -22,11 +22,13 @@ DURR
 print <<DURR;
 <p>
 <table cellpadding=0>
-<tr><th>ID</th><th></th><th width=500px>Volledige naam</th></tr>
+<tr><th>ID</th><th></th><th width=500px>Volledige naam</th><th>Bewerken</th><th>Enquetes</th></tr>
 DURR
 
 while (@naw = $Pag->fetchrow()) {
- print "<tr><td width=50px><a href=?fn=01m&doMe=$naw[0]>$naw[0]</a></td><td><img src=\"./content/static/ico/$naw[3].png\"></td><td><a href=?fn=00a&filter=$naw[1]>$naw[2]</a></td></tr>\n";
+ if($naw[4] == "0"){ 
+ print "<tr><td width=50px>$naw[0]</td><td><img src=\"./content/static/ico/$naw[3].png\"></td><td>$naw[2]</td><td><a href=?fn=01m&doMe=$naw[0]>Bewerk</a></td><td><a href=?fn=00a&filter=$naw[1]>Ga</a></td></tr>\n";
+ };
 };
 
 print "</table>";
