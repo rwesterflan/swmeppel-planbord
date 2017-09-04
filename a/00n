@@ -68,19 +68,6 @@ WEE
 
 while (@naw = $Pag->fetchrow()) {
 if($naw[0] != "998") { #sorry flan
-$stattotal++;
-if($naw[15] =~ /doc/){ $statdoc++ };
-if($naw[15] =~ /ass/){ $statass++ };
-if($naw[15] =~ /other/){ $statoth++ };
-if($naw[20]){ $statedited++ };
-if($naw[20] =~ /Windows NT 6.1/){ $ico1 = "<img src=./content/static/win.png alt=Windows>"; $statWIN++; }; 
-if($naw[20] =~ /Windows NT 5.1/){ $ico1 = "<img src=./content/static/winxp.png alt=Windows>"; $statWINXP++; }; 
-if($naw[20] =~ /Windows NT 6.2/){ $ico1 = "<img src=./content/static/win8.png alt=Windows>"; $statWIN8++; }; 
-if($naw[20] =~ /Android/){ $ico1 = "<img src=./content/static/android.png alt=Android>"; $statANDROID++; $statANDRB++; }; 
-if($naw[20] =~ /iPad/){ $ico1 = "<img src=./content/static/apple.png alt=iPad>"; $statIPAD++; $statIPADB++; }; 
-if($naw[20] =~ /MSIE/){ $ico2 = "<img src=./content/static/ie.png alt=InternetExplorer>"; $statIE++; }; 
-if($naw[20] =~ /Chrome/){ $ico2 = "<img src=./content/static/chrome.png alt=Chrome>"; $statCHROME++; }; 
-if($naw[20] =~ /Firefox/){ $ico2 = "<img src=./content/static/firefox.png alt=Firefox>"; $statFF++; }; 
 if($naw[0] == "999"){
  print "<tr onclick=\"DoNav('?fn=01n&doMe=$naw[0]');\"><td><img src=./content/static/disdel.png style=border-style:none; align=right></td><td><a href=\"mailto:$naw[11]\"><img src=./content/static/email.png></a></td><td>$naw[1]</td><td>$naw[2]</td><td>$naw[3]</td><td>$naw[4] $naw[5]</td><td>$naw[6]</td><td>$naw[7] $naw[8]</td><td>$naw[9]</td><td>$naw[10]</td><td>$naw[12]</td><td>$naw[15]</td><td>$ico1 $ico2</td></tr>\n";
 } else {
@@ -90,47 +77,6 @@ $ico1=""; $ico2="";
 };
 }
 
-
-#<td><a href=?fn=01n&doMe=$naw[0]><img src=./content/static/edit.png style=border-style:none; align=right></a></td>
-
 print "</table><hr><p>";
-
-print "<h2>Snelle statistieken:</h2>";
-if($out{filter}) {
-print "Deze statistieken zijn aangepast op het huidige filter.<br><a href=?fn=00n>Klik hier om het filter uit te zetten.</a><p>";
-};
-
-print <<derp;
-
-<table>
-<tr><th align=right width=250>Aantal leden: </th><td width=25> $stattotal</td></tr>
-<tr><th align=right>Waarvan docent*: </th><td> $statdoc</td></tr>
-<tr><th align=right>Waarvan assistent*: </th><td> $statass</td></tr>
-<tr><th align=right>Waarvan onbekend: </th><td> $statoth</td></tr>
-<tr><th align=right>Waarvan bijgewerkt: </th><td> $statedited</td></tr>
-</table>
-* (leden die allebei doen worden dubbel geteld. Dus +1 bij docent en assistent. <font size=1>Beetje moeilijk uit te leggen.</font>)
-
-<p>
-<h2>OS/Browser statistieken</h2>
-<table>
-<tr><th colspan=3>Besturingssysteem</th></tr>
-<tr><th width=250>Windows XP</th> <td><img src=./content/static/winxp.png></td> <td width=25> $statWINXP </td></tr>
-<tr><th>Windows 7</th>  <td><img src=./content/static/win.png></td> <td> $statWIN </td></tr>
-<tr><th>Windows 8</th>  <td><img src=./content/static/win8.png></td> <td> $statWIN8 </td></tr>
-<tr><th>Android</th>    <td><img src=./content/static/android.png></td> <td> $statANDROID </td></tr>
-<tr><th>iPad</th>       <td><img src=./content/static/apple.png></td> <td> $statIPAD </td></tr>
-</table>
-<p>
-<table>
-<tr><th colspan=3>Browser</th></tr>
-<tr><th width=250>Windows Internet Explorer</th><td><img src=./content/static/ie.png></td> <td width=25>$statIE</td></tr>
-<tr><th>Google Chrome</th><td><img src=./content/static/chrome.png></td> <td> $statCHROME </td></tr>
-<tr><th>Mozilla Firefox</th><td><img src=./content/static/firefox.png></td> <td> $statFF </td></tr>
-<tr><th>Android browser</th><td><img src=./content/static/android.png></td> <td> $statANDRB </td></tr>
-<tr><th>iPad browser</th><td><img src=./content/static/apple.png></td> <td> $statIPADB </td></tr>
-</table>
-iPad/Android: dit kan iedere webkit-browser zijn.
-derp
 
 1;
