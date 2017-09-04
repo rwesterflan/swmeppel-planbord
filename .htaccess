@@ -1,1 +1,5 @@
 ## Default .htaccess file
+<Files ~ "\.cfg$">
+Order Allow,Deny
+Deny from all
+</Files>
