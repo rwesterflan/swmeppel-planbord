@@ -16,15 +16,10 @@ table.sel tr:hover{ background-color:White;cursor:pointer; }
 <font face=verdana><form action=a/004.cgi name=pw action=get><input type=hidden name=request value=01m><input type=hidden name=id value=$out{doMe}><input type=hidden name=doMe value=$out{doMe}>
 
 <table>
-<tr><td>ID:              </td><td><input $lock type=text name=id style="width:535px;" value="$CONTENT->{$out{doMe}}->{id}"></td></tr>
+<tr><td>ID:              </td><td><input $lock type=text name=id style="width:535px;" value="$CONTENT->{$out{doMe}}->{id}" readonly></td></tr>
 <tr><td>Verkorte titel:  </td><td><input $lock type=text name=shortName    style="width:535px;" value="$CONTENT->{$out{doMe}}->{shortName}"></td></tr>
 <tr><td>Volledige titel: </td><td><input $lock type=text name=fullName    style="width:535px;" value="$CONTENT->{$out{doMe}}->{fullName}"></td></tr>
-<tr><td>Startdatum:      </td><td><input $lock type=text name=startDate    style="width:535px;" value="$CONTENT->{$out{doMe}}->{startDate}"></td></tr>
-<tr><td>Einddatum:       </td><td><input $lock type=text name=endDate   style="width:535px;" value="$CONTENT->{$out{doMe}}->{endDate}"></td></tr>
-<tr><td>Level:           </td><td><input $lock type=text name=level   style="width:535px;" value="$CONTENT->{$out{doMe}}->{level}"></td></tr>
-<tr><td>Eisen:           </td><td><input $lock type=text name=prereqs     style="width:535px;" value="$CONTENT->{$out{doMe}}->{prereqs}"></td></tr>
-<tr><td>LengteIcon:      </td><td><input $lock type=text name=duration style="width:535px;" value="$CONTENT->{$out{doMe}}->{duration}"></td></tr>
-<tr><td>Icoontjes:       </td><td><input $lock type=text name=icon style="width:535px;" value="$CONTENT->{$out{doMe}}->{icon}"></td></tr>
+<tr><td>Pictrogram:       </td><td><input $lock type=text name=icon style="width:535px;" value="$CONTENT->{$out{doMe}}->{icon}"></td></tr>
 <tr><td>Cursus stoppen:  </td><td><input $lock type=checkbox name=endCourse"> Selecteer deze checkbox als de cursus niet meer gegeven wordt.</td></tr>
 </table>
 
