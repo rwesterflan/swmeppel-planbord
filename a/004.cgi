@@ -190,7 +190,8 @@ $targetURL="00f";
 
 ########################################################################### 01m
 if($out{request} =~ /^01m$/){
-if($out{disable} =~ /on/){ $status="1"; } else { $status = "0"; };
+if($out{disable} =~ /on/){ $status = "1"; } else { $status = "0"; };
+print $out{disable};
 
 $dbh->do("UPDATE courses SET shortNAme='$out{shortName}', fullNAme='$out{fullName}', icon='$out{icon}', disabled='$status' WHERE id='$out{id}';") or die(mysql_error()); ;
 $targetURL="00m";
