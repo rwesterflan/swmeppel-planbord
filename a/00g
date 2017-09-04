@@ -55,7 +55,7 @@ while (@naw = $Pag->fetchrow()) {
   if($c{$naw[0]} =~ /0/){ $mark0 = "selected"; } elsif($c{$naw[0]} =~ /1/){ $mark1 = "selected"; } elsif($c{$naw[0]} =~ /2/){ $mark2 = "selected"; };
  };
  if($naw[0] =~ /^5/){ $wlbl = "(Workshop)"; };
- print "<tr><td width=50px><select name=$naw[0] $lock><option value=\"0\" $mark0>Nee</option><option value=\"1\" $mark1>Docent</option><option value=\"2\" $mark2>Assistent</option></select></td><td><img src=\"./content/static/ico/$c{$naw[0]}.png\"><img src=\"./content/static/ico/$naw[9].png\"></td><td>$wlbl $naw[3]</td></tr>\n";
+ print "<tr><td width=50px><select name=$naw[0] $lock><option value=\"0\" $mark0>Nee</option><option value=\"1\" $mark1>Docent</option><option value=\"2\" $mark2>Assistent</option></select></td><td><img src=\"./content/static/ico/$c{$naw[0]}.png\"><img src=\"./content/static/ico/$naw[3].png\"></td><td>$wlbl $naw[2]</td></tr>\n";
  $mark0=""; $mark1=""; $mark2=""; $wlbl="";
 };
 
