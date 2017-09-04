@@ -280,7 +280,7 @@ print <<LAPTEKST;
 </form></td>
 </tr>
 </table>
-<font size=2 color=white><i>&copy 2012-2014 Fland.re Webservices</i></font>
+<font size=2 color=white><i>&copy 2012-$year Fland.re -- Code op <a style="color:white" href="https://git.fland.re/rwesterh/planbord">Gitlab</a></i></font>
 </body>
 </html>
 LAPTEKST
