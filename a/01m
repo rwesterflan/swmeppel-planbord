@@ -20,11 +20,8 @@ table.sel tr:hover{ background-color:White;cursor:pointer; }
 <tr><td>Verkorte titel:  </td><td><input $lock type=text name=shortName    style="width:535px;" value="$CONTENT->{$out{doMe}}->{shortName}"></td></tr>
 <tr><td>Volledige titel: </td><td><input $lock type=text name=fullName    style="width:535px;" value="$CONTENT->{$out{doMe}}->{fullName}"></td></tr>
 <tr><td>Pictrogram:       </td><td><input $lock type=text name=icon style="width:535px;" value="$CONTENT->{$out{doMe}}->{icon}"></td></tr>
-<tr><td>Cursus stoppen:  </td><td><input $lock type=checkbox name=disable"> Selecteer deze checkbox als de cursus niet meer gegeven wordt. $CONTENT->{$out{doMe}}->{disabled}</td></tr>
+<tr><td>Cursus stoppen:  </td><td><input $lock type=checkbox name=disable> Selecteer deze checkbox als de cursus niet meer gegeven wordt. $CONTENT->{$out{doMe}}->{disabled}</td></tr>
 </table>
-
-<p>
-<b>Let op: dit werkt nog niet #InAanbouw</b>
 derp
 
 1;
