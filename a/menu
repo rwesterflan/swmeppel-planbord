@@ -18,7 +18,7 @@ if($u=~/0|1/){ print "<br>"; };
 
 if($u=~/0|1/){ print "<i><b>Planbord</b></i>"; };
 if($u=~/0|1/){ print "<li><a href=?fn=00w>Berichten</a></li>" };
-if($u=~/0|1/){ print "<li><a href=?fn=00m>Cursusrooster</a></li>" };
+if($u=~/0|1/){ print "<li><a href=?fn=00m>Cursusinfo</a></li>" };
 if($u=~/0|1/){ print "<br>"; };
 
 if($u=~/0|1|2/){ print "<i><b>Administratie</b></i>" };
