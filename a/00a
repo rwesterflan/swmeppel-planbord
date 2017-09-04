@@ -1,8 +1,8 @@
 if($out{filter} =~ /^$/){
-$Pag = $dbh->prepare("SELECT enq.*, courses.id, courses.shortName, courses.fullName, courses.icon FROM enq left join courses on enq.courseid = courses.id where enq.courseDate like '%2015%' order by enq.id desc");
+$Pag = $dbh->prepare("SELECT enq.*, courses.id, courses.shortName, courses.fullName, courses.icon FROM enq left join courses on enq.courseid = courses.id where enq.courseDate like '%2017%' order by enq.id desc");
 $Pag->execute();
 } else {
-$Pag = $dbh->prepare("SELECT enq.*, courses.id, courses.shortName, courses.fullName, courses.icon FROM enq left join courses on enq.courseid = courses.id where courses.shortName like '%$out{filter}%' and enq.courseDate like '%2015%' order by enq.id desc");
+$Pag = $dbh->prepare("SELECT enq.*, courses.id, courses.shortName, courses.fullName, courses.icon FROM enq left join courses on enq.courseid = courses.id where courses.shortName like '%$out{filter}%' and enq.courseDate like '%2017%' order by enq.id desc");
 $Pag->execute();
 };
 
