@@ -25,7 +25,11 @@ table.sel tr:hover{ background-color:White;cursor:pointer; }
 <tr><td>Eisen:           </td><td><input $lock type=text name=prereqs     style="width:535px;" value="$CONTENT->{$out{doMe}}->{prereqs}"></td></tr>
 <tr><td>LengteIcon:      </td><td><input $lock type=text name=duration style="width:535px;" value="$CONTENT->{$out{doMe}}->{duration}"></td></tr>
 <tr><td>Icoontjes:       </td><td><input $lock type=text name=icon style="width:535px;" value="$CONTENT->{$out{doMe}}->{icon}"></td></tr>
+<tr><td>Cursus stoppen:  </td><td><input $lock type=checkbox name=endCourse"> Selecteer deze checkbox als de cursus niet meer gegeven wordt.</td></tr>
 </table>
+
+<p>
+<b>Let op: dit werkt nog niet #InAanbouw</b>
 derp
 
 1;
