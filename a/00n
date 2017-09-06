@@ -54,8 +54,8 @@ print <<WEE;
 </script>
 
 <style>
-tr:nth-child(odd) {background: #CCC}
-tr:nth-child(even) {background: #DDD}
+tr:nth-child(odd) {background: #DDD}
+tr:nth-child(even) {background: #EEE}
 table.sel tr:hover{ background-color:White;cursor:pointer; }
 </style>
 
@@ -67,7 +67,7 @@ table.sel tr:hover{ background-color:White;cursor:pointer; }
 WEE
 
 while (@naw = $Pag->fetchrow()) {
-if($naw[0] != "998") { #sorry flan
+if(($naw[0] != "998") || ($naw[0] == "997")){ #sorry flan
 if($naw[0] == "999"){
  print "<tr onclick=\"DoNav('?fn=01n&doMe=$naw[0]');\"><td><img src=./content/static/disdel.png style=border-style:none; align=right></td><td><a href=\"mailto:$naw[11]\"><img src=./content/static/email.png></a></td><td>$naw[1]</td><td>$naw[2]</td><td>$naw[3]</td><td>$naw[4] $naw[5]</td><td>$naw[6]</td><td>$naw[7] $naw[8]</td><td>$naw[9]</td><td>$naw[10]</td><td>$naw[12]</td><td>$naw[15]</td><td>$ico1 $ico2</td></tr>\n";
 } else {
