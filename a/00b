@@ -14,51 +14,54 @@ table.sel tr:hover{ background-color:White;cursor:pointer; }
 </style>
 
 <h1>Enqueteformulier</h1>
-Seniorweb Meppel hecht grote waarde aan de kwaliteit van haar opleidingen.<br>
-Daarom vragen wij u dit evaluatieformulier in te vullen, zodat wij in de toekomst rekening kunnen houden met uw mening en wensen.
+Als Seniorweb Meppel vinden wij het belangrijk om van u te weten wat u van de cursus vindt.<br>
+Wij gebruik uw informatie om ons aanbod aan cursussen te verbeteren.
 <p>
-<form action=a/004.cgi method=post>
+<form action=a/005.cgi method=post>
 <input type=hidden name=request value=00b>
 <input type=hidden name=enq value=1>
 <table>
-<tr><td>Cursus</td>  <td><select name=courseID style="width:235px;"><option disabled selected>Kies een cursus uit de lijst...</option>
+<tr><td>Cursus</td><td colspan=4><select name=courseID style="width:235px;"><option disabled selected>Kies een cursus uit de lijst...</option>
 DURR
 
 while (@naw = $Pag->fetchrow()) {
  print "<option value=$naw[0]>$naw[1]</option>\n";
 };
 
-
 print <<DURR;
 </td></tr>
-<tr><td>Plaats en datum</td><td><input type=text name=courseDate value="$datum, Meppel" style="width:235px;"></td></tr>
+<tr><td>Plaats en datum</td><td colspan=4><input type=text name=courseDate value="$datum, Meppel" style="width:235px;"></td></tr>
+<tr><th></th><th>--</th><th>-</th><th>+</th><th>++</th></tr>
+<tr><th colspan=5>Vragen over de locatie</th></tr>
+<tr><td>Hoe vond u de werkplek?</td><td><input type=radio name=werkplek value=1></td><td><input type=radio name=werkplek value=2></td><td><input type=radio name=werkplek value=3></td><td><input type=radio name=werkplek value=4></td></tr>
+<tr><td>Hoe was de sfeer tijdens de les, en de pauze?</td><td><input type=radio name=sfeer value=1></td><td><input type=radio name=sfeer value=2></td><td><input type=radio name=sfeer value=3></td><td><input type=radio name=sfeer value=4></td></tr>
+<tr><td colspan=5>Opmerkingen: <input type=text name=com1></td></tr>
+<tr><th colspan=5>Vragen over de groep</th></tr>
+<tr><td>Voelde u zich op uw gemak?</td><td><input type=radio name=comf value=1></td><td><input type=radio name=comf value=2></td><td><input type=radio name=comf value=3></td><td><input type=radio name=comf value=4></td></tr>
+<tr><td>Kun u het tempo volgen?</td><td><input type=radio name=tempo value=1></td><td><input type=radio name=tempo value=2></td><td><input type=radio name=tempo value=3></td><td><input type=radio name=tempo value=4></td></tr>
+<tr><td colspan=5>Opmerkingen: <input type=text name=com2></td></tr>
+<tr><th colspan=5>Vragen over de lesstof</th></tr>
+<tr><td>Waren dit de onderwerpen die u nodig had?</td><td><input type=radio name=topics value=1></td><td><input type=radio name=topics value=2></td><td><input type=radio name=topics value=3></td><td><input type=radio name=topics value=4></td></tr>
+<tr><td>Bent u tevreden over het lesmateriaal?</td><td><input type=radio name=ma5s value=1></td><td><input type=radio name=mats value=2></td><td><input type=radio name=mats value=3></td><td><input type=radio name=mats value=4></td></tr>
+<tr><td colspan=5>Opmerkingen: <input type=text name=com3></td></tr>
+<tr><th colspan=5>Vragen over de docent en begeleiding</th></tr>
+<tr><td>Werd het onderwerp goed uitgelegd</td><td><input type=radio name=expl value=1></td><td><input type=radio name=expl value=2></td><td><input type=radio name=expl value=3></td><td><input type=radio name=expl value=4></td></tr>
+<tr><td>Werd u correct geholpen als dat nodig was?</td><td><input type=radio name=hulp value=1></td><td><input type=radio name=hulp value=2></td><td><input type=radio name=hulp value=3></td><td><input type=radio name=hulp value=4></td></tr>
+<tr><td colspan=5>Opmerkingen: <input type=text name=com4></td></tr>
+<tr><th colspan=5>Vragen over u:</th></tr>
+<tr><td>Had u zich op de lessen voorbereid?</td><td><input type=radio name=prep value=1></td><td><input type=radio name=prep value=2></td><td><input type=radio name=prep value=3></td><td><input type=radio name=prep value=4></td></tr>
+<tr><td>Oefent u thuis?</td><td><input type=radio name=thuis value=1></td><td><input type=radio name=thuis value=2></td><td><input type=radio name=thuis value=3></td><td><input type=radio name=thuis value=4></td></tr>
+<tr><td colspan=5>Opmerkingen: <input type=text name=com5></td></tr>
 
-<tr><td>Hoe kwam u bij deze cursus terecht?</td> <td>
+<tr><td>Hoe heeft u kennis genomen over cursussen van Seniorweb Meppel?</td> <td colspan=5>
  <select name=courseRef style="width:235px;">
-  <option value=newsp>Krant</option>
-  <option value=relative>Leerkracht of kennis</option>
-  <option value=website>Website</option>
-  <option value=booklet>Cursusboekje</option>
-  <option value=other>Anders</option>
- </select></td></tr><tr><td>Indien ergens anders, waar?</td><td><input type=text name=courseRefOther style="width:235px;"></td></tr>
-<tr><td colspan=2>&nbsp;</td></tr>
-<tr><td>Heeft u geleerd wat u wilde weten?</td><td><select name=c1 style="width:235px;"><option disabled selected>Kies...</option><option value=1>Matig</option><option value=2>Goed</option><option value=3>Uitstekend</option></select></td></tr>
-<tr><td>Kon u goed meekomen?</td><td><select name=c2 style="width:235px;"><option disabled selected>Kies...</option><option value=1>Matig</option><option value=2>Goed</option><option value=3>Uitstekend</option></select></td></tr>
-<tr><td>Bent u tevreden over de cursus?</td><td><select name=c3 style="width:235px;"><option disabled selected>Kies...</option><option value=1>Matig</option><option value=2>Goed</option><option value=3>Uitstekend</option></select></td></tr>
-<tr><td>Hoe vond u het lesmateriaal?</td><td><select name=c4 style="width:235px;"><option disabled selected>Kies...</option><option value=1>Matig</option><option value=2>Goed</option><option value=3>Uitstekend</option></select></td></tr>
-<tr><td>Hoe vond u de sfeer in het leslokaal?</td><td><select name=c5 style="width:235px;"><option disabled selected>Kies...</option><option value=1>Matig</option><option value=2>Goed</option><option value=3>Uitstekend</option></select></td></tr>
-<tr><td>Hoe heeft u het lesgeven ervaren?</td><td><select name=c6 style="width:235px;"><option disabled selected>Kies...</option><option value=1>Matig</option><option value=2>Goed</option><option value=3>Uitstekend</option></select></td></tr>
-<tr><td>Denkt u in de toekomst nog een cursus te willen volgen?</td><td><select name=c7 style="width:235px;"><option disabled selected>Ja/nee</option><option value=1>Ja</option><option value=0>Nee</option></select></td></tr>
-<tr><td colspan=2>&nbsp;</td></tr>
-<tr><td>Welke suggesties heeft u met betrekking tot de gevolgde cursus?</td><td><input type=text name=courseSuggestions style="width:235px;"></td></tr>
-<tr><td>Hoe verliep het contact met de cursusadministratie?</td><td><input type=text name=courseContact style="width:235px;"></td></tr>
-<tr><td>Welke opleidingen vindt u dat wij nog meer zou moeten organiseren?</td><td><input type=text name=courseIdeas style="width:235px;"></td></tr>
-<tr><td colspan=2>&nbsp;</td></tr>
-<tr><td>Wat is uw e-mailadres?</td><td><input type=text name=courseEmail style="width:235px;"></td></tr>
-<tr><td colspan=2><input type=checkbox name=courseKeepMePosted id=kmp><label for=kmp>Ik wil op de hoogte gehouden worden van de opleidingen en de activiteiten van SeniorWeb Meppel</label></td></tr>
-<tr><td colspan=2>&nbsp;</td></tr>
-<tr><td colspan=2><b>Controleer voordat u op <i>Volgende</i> klikt of alle velden zijn ingevoerd.</b></td></tr>
+  <option value=returning>Eerder een cursus gevolgd</option>
+  <option value=newspaper>Gelezen in de krant</option>
+  <option value=relatives>Via bekenden</option>
+  <option value=adventure>Zelf op zoek gegaan</option>
+ </select></td></tr>
 </table>
 DURR
 
 };
+
