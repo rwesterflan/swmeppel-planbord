@@ -38,7 +38,7 @@ require "dbd.cfg";
  
 ########################################################################### 00b
 if($out{request} =~ /^00b$/){
-$dbh->do("INSERT INTO enqv2 VALUES ('', '$out{courseID}', '$out{courseDate}', '$out{werkplek}', '$out{sfeer}', '$out{comf}', '$out{tempo}', '$out{topics}', '$out{mats}', '$out{expl}', '$out{hulp}', '$out{prep}', '$out{thuis}', '$out{com1}', '$out{com2}', '$out{com3}', '$out{com4}', '$out{com5}', '$out{courseRef}', '$out{courseTeacher}, '$out{future}')");
+$dbh->do("INSERT INTO enqv2 VALUES ('', '$out{courseID}', '$out{courseDate}', '$out{werkplek}', '$out{sfeer}', '$out{comf}', '$out{tempo}', '$out{topics}', '$out{mats}', '$out{expl}', '$out{hulp}', '$out{prep}', '$out{thuis}', '$out{com1}', '$out{com2}', '$out{com3}', '$out{com4}', '$out{com5}', '$out{courseRef}', '$out{courseTeacher}', '$out{future}')");
 
 $targetURL="01b";
 };
