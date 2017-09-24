@@ -41,11 +41,9 @@ print <<FIRSTHTML;
 FIRSTHTML
 
 print "<td bgcolor=$menukleur width=117px height=231 valign=top>";
-print "<td bgcolor=#EEEEEE valign=top border=0 width=883 style=\"padding-left: 20px; padding-top: 10px; \"><h1><font face=arial>";
+print "<td bgcolor=#EEEEEE valign=top border=0 width=883 style=\"padding-left: 20px; padding-top: 10px; \"><font face=arial>";
 
-print <<ENQUETEFORM;
-Lorum ipsum
-ENQUETEFORM
+require "a/00b";
 
 $icanhasbutton="yes";
 ########################################################################### 
