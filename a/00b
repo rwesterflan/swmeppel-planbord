@@ -3,8 +3,12 @@ $icanhasbutton="yes";
 if($out{warning} =~ /1/){ print "<div class=info><b>Enquete is verstuurd</b><br>Bedankt voor uw deelname.</div>"; $icanhasbutton="no"; } else {
 
 if($out{warning} =~ /2/){ print "<div class=warning><b>Er zijn te veel velden niet of onjuist ongevoerd.<br>Probeer het opnieuw.</div>"; };
-$Pag = $dbh->prepare("SELECT id, fullName FROM courses order by fullName asc");
+$Pag = $dbh->prepare("SELECT id, fullName FROM courses where disabled = \"0\" order by fullName asc");
 $Pag->execute();
+
+$Dag = $dbh->prepare("SELECT fname, lname FROM users order by lname asc");
+$Dag->execute();
+
 
 print <<DURR;
 <style>
@@ -28,6 +32,13 @@ while (@naw = $Pag->fetchrow()) {
  print "<option value=$naw[0]>$naw[1]</option>\n";
 };
 
+print "<tr><td>Docent</td><td colspan=4><select name=courseTeacher style=\"width:235px;\"><option disabled selected>Kies een docent uit de lijst...</option>";
+
+while (@naw = $Dag->fetchrow()) {
+ print "<option value=$naw[1]>$naw[1], $naw[0]</option>\n";
+};
+
+
 print <<DURR;
 </td></tr>
 <tr><td>Plaats en datum</td><td colspan=4><input type=text name=courseDate value="$datum, Meppel" style="width:235px;"></td></tr>
@@ -42,10 +53,10 @@ print <<DURR;
 <tr><td colspan=5>Opmerkingen: <input type=text name=com2></td></tr>
 <tr><th colspan=5>Vragen over de lesstof</th></tr>
 <tr><td>Waren dit de onderwerpen die u nodig had?</td><td><input type=radio name=topics value=1></td><td><input type=radio name=topics value=2></td><td><input type=radio name=topics value=3></td><td><input type=radio name=topics value=4></td></tr>
-<tr><td>Bent u tevreden over het lesmateriaal?</td><td><input type=radio name=ma5s value=1></td><td><input type=radio name=mats value=2></td><td><input type=radio name=mats value=3></td><td><input type=radio name=mats value=4></td></tr>
+<tr><td>Bent u tevreden over het lesmateriaal?</td><td><input type=radio name=mats value=1></td><td><input type=radio name=mats value=2></td><td><input type=radio name=mats value=3></td><td><input type=radio name=mats value=4></td></tr>
 <tr><td colspan=5>Opmerkingen: <input type=text name=com3></td></tr>
 <tr><th colspan=5>Vragen over de docent en begeleiding</th></tr>
-<tr><td>Werd het onderwerp goed uitgelegd</td><td><input type=radio name=expl value=1></td><td><input type=radio name=expl value=2></td><td><input type=radio name=expl value=3></td><td><input type=radio name=expl value=4></td></tr>
+<tr><td>Werd het onderwerp goed uitgelegd?</td><td><input type=radio name=expl value=1></td><td><input type=radio name=expl value=2></td><td><input type=radio name=expl value=3></td><td><input type=radio name=expl value=4></td></tr>
 <tr><td>Werd u correct geholpen als dat nodig was?</td><td><input type=radio name=hulp value=1></td><td><input type=radio name=hulp value=2></td><td><input type=radio name=hulp value=3></td><td><input type=radio name=hulp value=4></td></tr>
 <tr><td colspan=5>Opmerkingen: <input type=text name=com4></td></tr>
 <tr><th colspan=5>Vragen over u:</th></tr>
