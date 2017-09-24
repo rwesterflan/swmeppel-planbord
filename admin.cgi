@@ -173,7 +173,7 @@ print <<FIRSTHTML;
 </head>
 <body bgcolor=black>
 <p>
-<table bgcolor=#3399FF cellspacing=0 border=0>
+<table bgcolor=#eee cellspacing=0 border=0>
 <tr>
  <td bgcolor=$titelkleur height=30 colspan=2><font face=Arial color=white size=3><b>$titelbalk</b></font><a href=admin.cgi?session=quit onclick="return confirm('Weet u zeker dat u zich af wilt melden?');"><img src=./content/static/end.png style=border-style:none; align=right></a></td>
 </tr>
@@ -190,7 +190,7 @@ if(($CGISESSION =~ /^$/) || ($out{menu} =~ /off/)){
  };
 };
 
-print "<td bgcolor=#CCCCCC valign=top border=0 width=883 style=\"padding-left: 20px; padding-top: 10px; \"><h1><font face=arial>";
+print "<td bgcolor=#EEEEEE valign=top border=0 width=883 style=\"padding-left: 20px; padding-top: 10px; \"><h1><font face=arial>";
 ########################################################################### 
 ########################################################################### Insert content
 #if($ENV{'SERVER_PORT'} =~ /^2530$/){
@@ -230,7 +230,6 @@ $loldong
 <tr><td>Wachtwoord:</td><td><input type="password" name="zzy"/></td></tr>
 <tr><td>Domein:</td><td><select name=domain><option selected value=swmeppel>Seniorweb Meppel</option>
 <p>
-<tr><td colspan=2> <font size=1> Deze site maakt gebruik van cookies om het inloggen werkend te maken.<br>Verder word er absoluut niks gelogd in cookies.<p>Door in te loggen gaat u akkoord hiermee.<br>Niet dat ik het eens ben met deze wetgeving, maar het is verplicht dit te melden.</font></td></tr>
 LAPTEKST
 
 print "</select></td></tr>\n<p>\n</table>";
