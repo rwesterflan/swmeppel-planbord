@@ -71,8 +71,9 @@ print <<DURR;
   <option value=relatives>Via bekenden</option>
   <option value=adventure>Zelf op zoek gegaan</option>
  </select></td></tr>
-</table>
 DURR
+
+print "<tr><td>Wat wilt u later nog leren?</td><td colspan=4><input type=text name=future></td></tr></table>";
 
 };
 
