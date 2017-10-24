@@ -44,5 +44,5 @@ $targetURL="01b";
 };
 
 ########################################################################### Finishing touch
-print "<script type=\"text/javascript\">  window.location.href = \"../enq.cgi?fn=$targetURL\";</script>";
+print "<script type=\"text/javascript\">  window.location.href = \"../enqdone.html\";</script>";
 print "Klik <a href=../?fn=$targetURL>hier</a> als je niet word doorverwezen...";
